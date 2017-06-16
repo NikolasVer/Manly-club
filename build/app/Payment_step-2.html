@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>title</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/libs.min.css" media="all" />
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="js/libs.min.js"></script>
+	<script type="text/javascript" src="js/google-map-style.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+</head>
+
+<body class="no-footer-page body-color-grey2">
+	<div id="page">
+		<nav id="menu">
+			<ul class="header__nav-items">
+				<li><a href="">Магазин</a></li>
+				<li><a href="">Блог</a></li>
+				<li><a href="">О нас</a></li>
+				<li><a href="">Помощь</a></li>
+				<li><a href="">Партнеры</a></li>
+			</ul>
+		</nav>
+		<header class="header">
+			<nav class="header__nav">
+				<div class="container">
+					<a class="mob-menu__icon visible-sm position-nav" href="#menu">
+						<span></span>
+						<span></span>
+						<span></span>
+					</a>
+					<strong role="banner" class="header__logo"><a href="/">MANLY CLUB est.2014</a></strong>
+					<ul class="header__nav-items hidden-sm">
+						<li><a href="">Магазин</a></li>
+						<li><a href="">Блог</a></li>
+						<li><a href="">О нас</a></li>
+						<li><a href="">Помощь</a></li>
+						<li><a href="">Партнеры</a></li>
+					</ul>
+					<ul class="header__nav-icons">
+						<li class="hidden-sm">
+							<div class="header__search-form">
+								<form action="">
+									<fieldset>
+										<input type="text" placeholder="Search..." class="txt-s">
+										<input type="submit" value="Поиск" class="header__search-icon">
+										<i class="header__search-icon"></i>
+									</fieldset>
+								</form>
+							</div>
+						</li>
+						<li><i class="header__login-icon hidden-sm"></i></li>
+						<li><i class="header__cart-icon"></i></li>
+					</ul>
+					<div class="mob__user-inf">
+						<div class="user-inf">
+							<div class="avatar">
+								<a href=""><img src="images/img-35.png" alt=""></a>
+							</div>
+							<div class="name"><a href="">User Name</a></div>
+						</div>
+						<div class="settings-icon">
+							<ul>
+								<li><a href=""><i class="icon-setting"></i></a></li>
+								<li><a href=""><i class="icon-exit"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<main class="main">
+			<div class="cart__steps-form">
+				<div class="cart__top-nav">
+					<div class="container">
+						<div class="cart__back-btn">Назад</div>
+						<div class="shop__swich">
+							<ul class="text-center">
+								<li><a class="arrow " href="">1  Корзина</a></li>
+								<li><a class="arrow active" href="">2  Контакты</a></li>
+								<li><a class="" href="">3  Подтвердить заказ</a></li>
+							</ul>
+						</div>
+						<div class="cart__close-btn">Закрыть</div>
+					</div>
+				</div>
+			</div>
+			<div class="cart__steps-forms">
+				<div class="container">
+					<div class="row cart__steps-forms-boxs">
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="cart__steps-forms-box">
+								<div class="ttl done">Контакты</div>
+								<input type="text" class="about-us__form-input ico-men" placeholder="Имя">
+								<input type="text" class="about-us__form-input ico-men" placeholder="Фамилия">
+								<input type="email" class="about-us__form-input ico-mail" placeholder="Email">
+								<input type="tel" class="about-us__form-input ico-tel" placeholder="( 099 ) 800 80 80">
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="cart__steps-forms-box">
+								<div class="ttl error">Адрес Доставки</div>
+								<input type="text" class="about-us__form-input ico-sity" placeholder="Город">
+								<input type="text" class="about-us__form-input ico-num" placeholder="Отделения Новой Почты">
+								<input type="text" class="about-us__form-input ico-street" placeholder="Улица">
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-6 padding-right-none">
+										<input type="text" class="about-us__form-input ico-house" placeholder="Дом / Корпус">
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 padding-left-none">
+										<input type="text" class="about-us__form-input ico-flat" placeholder="Квартира">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="cart__steps-forms-box">
+								<div class="ttl error">Комментарий к заказу</div>
+								<textarea placeholder="Комментарий" class="about-us__form-input" name="name" rows="8" cols="40"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="row cart__steps-bottom-btns">
+							<div class="col-lg-8 col-md-8 col-sm-8 text-right">
+								<span>Заполненные данные будут сохранены в</span>
+								<a class="my-profile-link" href="">Ваш Профиль</a>
+								<a class="btn-07" href="">Сохранить</a>
+							</div>
+							<div class="col-lg-4 col-md-4 col-sm-4 text-right">
+								<a class="btn-02" href="">Продолжить</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</body>
+
+</html>

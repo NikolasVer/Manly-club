@@ -2,6 +2,7 @@
 
 namespace common\models\ar;
 
+use common\behaviors\SluggableBehavior;
 use Yii;
 
 /**
@@ -35,6 +36,18 @@ class ShopProduct extends \yii\db\ActiveRecord
         return 'shop_product';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'name',
+                'ensureUnique' => TRUE,
+                'immutable' => TRUE
+            ]
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -42,7 +55,7 @@ class ShopProduct extends \yii\db\ActiveRecord
     {
         return [
             [['shop_faq_id', 'status'], 'integer'],
-            [['name', 'slug'], 'required'],
+            [['name'], 'required'],
             [['description_cut', 'description_full'], 'string'],
             [['name', 'slug'], 'string', 'max' => 255],
             [['status'], 'in', 'range' => array_keys(static::statusLabels())],
@@ -78,9 +91,9 @@ class ShopProduct extends \yii\db\ActiveRecord
     public static function statusLabels()
     {
         return [
-            static::STATUS_ACTIVE => 'Активная',
-            static::STATUS_HIDDEN => 'Скрытая',
-            static::STATUS_DELETED => 'Удалена'
+            static::STATUS_ACTIVE => 'Активен',
+            static::STATUS_HIDDEN => 'Скрыт',
+            static::STATUS_DELETED => 'Удален'
         ];
     }
 

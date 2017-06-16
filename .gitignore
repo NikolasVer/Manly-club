@@ -38,3 +38,6 @@ backend/web/assets/*
 frontend/web/assets/*
 backend/runtime/*
 frontend/runtime/*
+
+build/node_modules
+build/dist/*

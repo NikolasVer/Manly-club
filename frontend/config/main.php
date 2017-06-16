@@ -11,6 +11,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'layout' => 'manly_template',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -41,6 +42,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'blog' => 'blog/list',
+                'blog/<slug:.*>' => 'blog/post'
             ],
         ],
     ],

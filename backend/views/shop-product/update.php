@@ -5,11 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\ar\ShopProduct */
 /* @var $faqList array */
+/* @var $newVarieties \common\models\ar\ShopProductVariety[] */
 
-$this->title = 'Update Shop Product: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Shop Products', 'url' => ['index']];
+$this->title = 'Обновить товар: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Магазин - Товары', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Обновить';
 ?>
 <div class="shop-product-update">
 
@@ -17,7 +18,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
         'model' => $model,
-        'faqList' => $faqList
+        'faqList' => $faqList,
+        'newVarieties' => $newVarieties
     ]) ?>
 
 </div>

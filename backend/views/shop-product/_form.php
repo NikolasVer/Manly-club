@@ -1,6 +1,6 @@
 <?php
 
-use yii\bootstrap\Tabs;
+use backend\widgets\ProductTabs;;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use zxbodya\yii2\elfinder\TinyMceElFinder;
@@ -10,6 +10,7 @@ use zxbodya\yii2\tinymce\TinyMce;
 /* @var $model common\models\ar\ShopProduct */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $faqList array */
+/* @var $newVarieties \common\models\ar\ShopProductVariety */
 
 $js = <<<JS
 var newVarieryCounter = 0;
@@ -22,13 +23,14 @@ function addVariety()
     + newVarieryCounter + ']$3');
     
     var idNewTab = 'ztab_links_tab' + newVarieryCounter;
-    tabLinks.append('<li><a href="#' + idNewTab + '" data-toggle="tab">Новый</a></li>');
     tabLinks.next().append('<div id="' + idNewTab + '" class="tab-pane">' + t + '</div>');
+    tabLinks.append('<li><a href="#' + idNewTab + '" data-toggle="tab">Новый</a></li>').find('a').tab('show');
     
     newVarieryCounter++;
 }
 $('#btn_add_variety').on('click', function(e) {
     e.preventDefault();
+    $(this).blur();
     addVariety();
 });
 JS;
@@ -90,7 +92,14 @@ $this->registerJs($js);
     </div>
 
     <?php
-    $items = [];
+    $items = [
+        [
+            'label' => 'Добавить объем',
+            'url' => '#add_variery',
+            'linkOptions' => ['class' => 'text-danger', 'id' => 'btn_add_variety']
+        ]
+    ];
+    $hasActive = FALSE;
     foreach ( $model->varieties as $index => $variety ) {
         $items[] = [
             'label' => $variety->volume,
@@ -98,15 +107,24 @@ $this->registerJs($js);
                 'form' => $form,
                 'model' => $variety,
                 'index' => $index
+            ]),
+            'active' => !$hasActive
+        ];
+        $hasActive = TRUE;
+    }
+    foreach ($newVarieties as $index => $newVariety) {
+        $items[] = [
+            'label' => 'Новое',
+            'content' => $this->render('_variety_form', [
+                'form' => $form,
+                'model' => $newVariety,
+                'index' => $index,
+                'isNew' => TRUE
             ])
         ];
+        $hasActive = TRUE;
     }
-    $items[] = [
-        'label' => 'Добавить объем',
-        'url' => '#add_variery',
-        'linkOptions' => ['class' => 'text-danger', 'id' => 'btn_add_variety']
-    ];
-    echo Tabs::widget([
+    echo ProductTabs::widget([
         'items' => $items,
         'id' => 'tab_links',
     ]);

@@ -2,8 +2,8 @@
 
 namespace backend\controllers;
 
-use backend\models\ProductExtendedForm;
 use common\models\ar\ShopFaq;
+use common\models\ar\ShopProductVariety;
 use Yii;
 use common\models\ar\ShopProduct;
 use backend\models\search\ShopProductSearch;
@@ -70,14 +70,31 @@ class ShopProductController extends Controller
         $faqList = ArrayHelper::map(ShopFaq::find()->select(['id', 'title'])->asArray()->all(), 'id', 'title');
         $model = new ShopProduct();
 
+        $newVarieties = ArrayHelper::getValue(
+            Yii::$app->request->post('newvariety', []), 'ShopProductVariety', []);
+        $nvCnt = count($newVarieties);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-                'faqList' => $faqList
-            ]);
+
+            if ( $nvCnt ) {
+                for($i = 0; $i < $nvCnt; $i++)
+                    $newVarieties[$i] = new ShopProductVariety(['shop_product_id' => $model->id]);
+
+                if ( Model::loadMultiple($newVarieties, Yii::$app->request->post('newvariety'))
+                    && Model::validateMultiple($newVarieties) ) {
+                    foreach ($newVarieties as $variety)
+                        $variety->save(FALSE);
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } else {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+            'faqList' => $faqList,
+            'newVarieties' => $newVarieties
+        ]);
     }
 
     /**
@@ -91,10 +108,13 @@ class ShopProductController extends Controller
         $faqList = ArrayHelper::map(ShopFaq::find()->select(['id', 'title'])->asArray()->all(), 'id', 'title');
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $newVarieties = ArrayHelper::getValue(Yii::$app->request->post('newvariety', []),
-                'ShopProductVariety', []);
+        $newVarieties = ArrayHelper::getValue(
+            Yii::$app->request->post('newvariety', []), 'ShopProductVariety', []);
+        $nvCnt = count($newVarieties);
 
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $success = TRUE;
             if (Model::loadMultiple($model->varieties, Yii::$app->request->post())) {
                 if ( Model::validateMultiple($model->varieties) ) {
                     $existed = Yii::$app->request->post('ShopProductVariety');
@@ -104,16 +124,32 @@ class ShopProductController extends Controller
                         else
                             $variety->delete();
                     }
-                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $success = FALSE;
                 }
-            } else {
-                return $this->redirect(['view', 'id' => $model->id]);
             }
+
+            if ( $nvCnt ) {
+                for($i = 0; $i < $nvCnt; $i++)
+                    $newVarieties[$i] = new ShopProductVariety(['shop_product_id' => $model->id]);
+
+                if ( Model::loadMultiple($newVarieties, Yii::$app->request->post('newvariety'))
+                    && Model::validateMultiple($newVarieties) ) {
+                    foreach ($newVarieties as $variety)
+                        $variety->save(FALSE);
+                } else {
+                    $success = FALSE;
+                }
+            }
+
+            if ( $success )
+                return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'faqList' => $faqList
+            'faqList' => $faqList,
+            'newVarieties' => $newVarieties
         ]);
     }
 

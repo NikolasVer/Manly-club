@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\ar\ShopProduct */
 /* @var $faqList array */
+/* @var $newVarieties \common\models\ar\ShopProductVariety[] */
 
 $this->title = 'Создать товар';
 $this->params['breadcrumbs'][] = ['label' => 'Магазин - Товары', 'url' => ['index']];
@@ -17,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'faqList' => $faqList
+        'faqList' => $faqList,
+        'newVarieties' => $newVarieties
     ]) ?>
 
 </div>

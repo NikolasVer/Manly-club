@@ -25,7 +25,7 @@ class SiteController extends Controller
                 'settings' => array(
                     'root' => Yii::getAlias('@uploads/storage'),
                     //'URL' => Yii::getAlias('@web') . '/uploads',
-                    'URL' => 'http://manly.local/uploads/',//debug
+                    'URL' => 'http://manly.local/uploads/storage/',//debug
                     'rootAlias' => 'Загрузки',
                     'mimeDetect' => 'none'
                 )

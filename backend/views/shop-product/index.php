@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\search\ShopProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Магазиг - Товары';
+$this->title = 'Магазин - Товары';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="shop-product-index">
@@ -27,10 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'shop_faq_id',
             'name',
-            'description_cut:ntext',
-            'description_full:ntext',
-            // 'slug',
-            // 'status',
+            'slug',
+            [
+                'attribute' => 'status',
+                'value' => function ( $model ) {/* @var \common\models\ar\ShopProduct $model */
+                    return $model->statusLabel;
+                },
+                'filter' => $searchModel::statusLabels()
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
