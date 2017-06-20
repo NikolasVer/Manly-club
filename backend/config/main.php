@@ -48,13 +48,7 @@ return [
             'rules' => [
             ],
         ],
-        'urlManagerFrontend' => [
-            'class' => 'yii\web\UrlManager',
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'hostInfo' => 'http://manly.local',
-            'baseUrl' => 'http://manly.local',
-        ]
+        'urlManagerFrontend' => require ('../../frontend/config/urls.php')
     ],
     'params' => $params,
 ];

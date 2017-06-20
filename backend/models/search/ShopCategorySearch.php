@@ -62,8 +62,12 @@ class ShopCategorySearch extends ShopCategory
             'id' => $this->id,
             'parent_id' => $this->parent_id,
             'priority' => $this->priority,
-            'status' => $this->status,
         ]);
+
+        if ( $this->status !== NULL && $this->status !== '' )
+            $query->andFilterWhere(['status' => $this->status]);
+        else
+            $query->andWhere(['<>', 'status', static::STATUS_DELETED]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'slug', $this->name]);

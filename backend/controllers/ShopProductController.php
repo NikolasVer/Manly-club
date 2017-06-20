@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\ar\ShopFaq;
 use common\models\ar\ShopProductVariety;
+use common\models\ar\ShopProductVarietyAttachment;
 use Yii;
 use common\models\ar\ShopProduct;
 use backend\models\search\ShopProductSearch;
@@ -12,6 +13,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ShopProductController implements the CRUD actions for ShopProduct model.
@@ -82,8 +84,10 @@ class ShopProductController extends Controller
 
                 if ( Model::loadMultiple($newVarieties, Yii::$app->request->post('newvariety'))
                     && Model::validateMultiple($newVarieties) ) {
-                    foreach ($newVarieties as $variety)
+                    foreach ($newVarieties as $variety) {
+                        /* @var ShopProductVariety $variety */
                         $variety->save(FALSE);
+                    }
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             } else {
@@ -120,7 +124,7 @@ class ShopProductController extends Controller
                     $existed = Yii::$app->request->post('ShopProductVariety');
                     foreach ($model->varieties as $variety) {
                         if(isset($existed[$variety->id]))
-                            $variety->save(false);
+                            $variety->save(FALSE);
                         else
                             $variety->delete();
                     }
@@ -161,7 +165,9 @@ class ShopProductController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->status = ShopProduct::STATUS_DELETED;
+        $model->save(FALSE, ['status']);
 
         return $this->redirect(['index']);
     }
@@ -184,5 +190,62 @@ class ShopProductController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionAttachFiles($variety_id)
+    {
+        $variety = ShopProductVariety::findOne($variety_id);
+
+        $model = new ShopProductVarietyAttachment([
+            'priority' => ShopProductVarietyAttachment::find()
+                ->byVarietyId($variety_id)->max('priority') + 1
+        ]);
+
+        $attachments = ShopProductVarietyAttachment::find()
+            ->byVarietyId($variety_id)
+            ->byPriority()
+            ->indexBy('id')->all();
+
+        if ( Model::loadMultiple($attachments, Yii::$app->request->post())
+            && Model::validateMultiple($attachments)) {
+            $existed = array_keys(Yii::$app->request->post($model->formName()));
+            foreach ($attachments as $index => $attachment) {
+                if ( in_array($attachment->id, $existed) ) {
+                    $attachment->save();
+                    $attachment->loadFile();
+                } else {
+                    $attachment->delete();
+                    unset($attachments[$index]);
+                }
+            }
+        } elseif ( $model->load(Yii::$app->request->post()) ) {
+
+            $model->shop_product_variety_id = $variety_id;
+            $t = Yii::$app->db->beginTransaction();
+            try {
+                if ($model->save()) {
+                    if ($model->loadFile()) {
+                        $t->commit();
+                        $model = new ShopProductVarietyAttachment();
+
+                        //reload
+                        $attachments = ShopProductVarietyAttachment::find()
+                            ->byVarietyId($variety_id)
+                            ->byPriority()
+                            ->indexBy('id')->all();
+                    } else {
+                        $t->rollBack();
+                    }
+                }
+            } catch (\Exception $ex) {
+                $t->rollBack();
+            }
+        }
+
+        return $this->render('attach-files', [
+            'variety' => $variety,
+            'model' => $model,
+            'attachments' => $attachments
+        ]);
     }
 }

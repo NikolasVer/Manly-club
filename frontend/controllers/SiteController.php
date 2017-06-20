@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\ar\ShopCategory;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -72,7 +73,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+
+        $cats = ShopCategory::find()->active()->priority()->root()->all();
+
+        return $this->render('index', [
+            'categories' => $cats
+        ]);
     }
 
     /**

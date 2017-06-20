@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $categories \common\models\ar\ShopCategory[] */
 
 $this->title = 'Manly Club - Главная';
 
@@ -40,14 +41,17 @@ $this->params['showVideoHead'] = TRUE;
     </div>
     <div class="main-category__items">
         <div class="row">
+            <?php foreach ( $categories as $category ): ?>
             <div class="col col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="bg-img"><img src="images/img-02.jpg" alt=""></div>
+                <div class="bg-img">
+                    <img src="<?= $category->image; ?>" alt="">
+                </div>
                 <div class="bg-img__box-inf">
                     <div class="bg-img__box-inf-in">
-                        <img src="images/img-02.jpg" alt="">
+                        <img src="<?= $category->image; ?>" alt="">
                     </div>
                 </div>
-                <div class="col__ttl">воск Для усов</div>
+                <div class="col__ttl"><?= $category->name; ?></div>
                 <ul class="col__btn-list">
                     <li>
                         <a class="col__btn-ico ico-01" href="#"></a>
@@ -62,93 +66,12 @@ $this->params['showVideoHead'] = TRUE;
                         <li><span class="col__btn-ico ico-02"></span></li>
                     </ul>
                     <div class="col__ttl-box">
-                        Воск для усов
+                        <?= $category->name_extended ? : $category->name; ?>
                     </div>
-                    <p>Винтажный продукт, ручная работа, натуральные ингредиенты - все это MANLY WAX для усов. </p>
+                    <p><?= $category->description; ?></p>
                 </div>
             </div>
-            <div class="col col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="bg-img"><img src="images/img-03.jpg" alt=""></div>
-                <div class="bg-img__box-inf">
-                    <div class="bg-img__box-inf-in">
-                        <img src="images/img-03.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col__ttl">Для Бороды</div>
-                <ul class="col__btn-list">
-                    <li>
-                        <a class="col__btn-ico ico-01" href="#"></a>
-                    </li>
-                    <li><span class="col__btn-ico ico-02"></span></li>
-                </ul>
-                <div class="col__box-inf">
-                    <ul class="col__btn-list-box">
-                        <li>
-                            <a class="col__btn-ico ico-01" href="#"></a>
-                        </li>
-                        <li><span class="col__btn-ico ico-02"></span></li>
-                    </ul>
-                    <div class="col__ttl-box">
-                        Бальзам для бороды
-                    </div>
-                    <p>Первые средства по уходу за бородой на территории СНГ, имеющие кремовую фактуру!</p>
-                </div>
-            </div>
-            <div class="col col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="bg-img"><img src="images/img-04.jpg" alt=""></div>
-                <div class="bg-img__box-inf">
-                    <div class="bg-img__box-inf-in">
-                        <img src="images/img-04.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col__ttl">Для Волос</div>
-                <ul class="col__btn-list">
-                    <li>
-                        <a class="col__btn-ico ico-01" href="#"></a>
-                    </li>
-                    <li><span class="col__btn-ico ico-02"></span></li>
-                </ul>
-                <div class="col__box-inf">
-                    <ul class="col__btn-list-box">
-                        <li>
-                            <a class="col__btn-ico ico-01" href="#"></a>
-                        </li>
-                        <li><span class="col__btn-ico ico-02"></span></li>
-                    </ul>
-                    <div class="col__ttl-box">
-                        для укладки волос
-                    </div>
-                    <p>Рай для любого уважающего себя “гризера”: от "классики" до современной водной основы. Высокое качество, ручной работы и, конечно же, доступная цена! </p>
-                    <p>MADE BY GREASERS, APPROVED BY BARBERS!</p>
-                </div>
-            </div>
-            <div class="col col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="bg-img"><img src="images/img-05.jpg" alt=""></div>
-                <div class="bg-img__box-inf">
-                    <div class="bg-img__box-inf-in">
-                        <img src="images/img-05.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col__ttl">Для татуировок</div>
-                <ul class="col__btn-list">
-                    <li>
-                        <a class="col__btn-ico ico-01" href="#"></a>
-                    </li>
-                    <li><span class="col__btn-ico ico-02"></span></li>
-                </ul>
-                <div class="col__box-inf">
-                    <ul class="col__btn-list-box">
-                        <li>
-                            <a class="col__btn-ico ico-01" href="#"></a>
-                        </li>
-                        <li><span class="col__btn-ico ico-02"></span></li>
-                    </ul>
-                    <div class="col__ttl-box">
-                        для Татуировок
-                    </div>
-                    <p>Первые профессиональные средства отечественного производства, используемые как во время процесса татуирования, так и для пост-ухода!</p>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>

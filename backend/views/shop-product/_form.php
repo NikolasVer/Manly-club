@@ -124,10 +124,13 @@ $this->registerJs($js);
         ];
         $hasActive = TRUE;
     }
+
+    echo Html::beginTag('div', ['class' => 'well']);
     echo ProductTabs::widget([
         'items' => $items,
         'id' => 'tab_links',
     ]);
+    echo Html::endTag('div');
     ?>
 
     <div class="form-group">

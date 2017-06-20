@@ -45,12 +45,27 @@ use zxbodya\yii2\tinymce\TinyMce;
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($uploadModel, 'mainImage')->fileInput() ?>
+            <?php if ( $model->image ): ?>
+                <label>Текущее изображение</label>
+                <div>
+                <?= Html::img(Yii::$app->urlManagerFrontend->createAbsoluteUrl($model->image),
+                    ['class' => 'img-rounded', 'style' => 'width: 200px;']) ?>
+                </div>
+            <?php endif; ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($uploadModel, 'previewImage')->fileInput() ?>
+            <?php if ( $model->image_preview ): ?>
+                <label>Текущее изображение</label>
+                <div>
+                    <?= Html::img(Yii::$app->urlManagerFrontend->createAbsoluteUrl($model->image_preview),
+                        ['class' => 'img-rounded', 'style' => 'width: 200px;']) ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 
+    <hr />
 
     <?= $form->field($model, 'excerpt')->widget(TinyMce::className(), [
         'options' => ['rows' => 5],

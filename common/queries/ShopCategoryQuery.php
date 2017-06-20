@@ -1,6 +1,7 @@
 <?php
 
 namespace common\queries;
+use common\models\ar\ShopCategory;
 
 /**
  * This is the ActiveQuery class for [[\common\models\ar\ShopCategory]].
@@ -31,4 +32,39 @@ class ShopCategoryQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    /***
+     * @param integer $status
+     * @return static
+     */
+    public function status($status)
+    {
+        return $this->andWhere([ShopCategory::tableName() . '.status' => $status]);
+    }
+
+    /**
+     * @return static
+     */
+    public function active()
+    {
+        return $this->status(ShopCategory::STATUS_ACTIVE);
+    }
+
+    /***
+     * @return static
+     */
+    public function root()
+    {
+        return $this->andWhere([ShopCategory::tableName() . '.parent_id' => NULL]);
+    }
+
+    /***
+     * @param bool $desc
+     * @return static
+     */
+    public function priority($desc = FALSE)
+    {
+        return $this->orderBy([ShopCategory::tableName() . '.priority' => $desc ? SORT_DESC : SORT_ASC]);
+    }
+
 }

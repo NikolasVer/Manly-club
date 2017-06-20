@@ -38,14 +38,7 @@ return [
             'errorAction' => 'site/error',
         ],
 
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-                'blog' => 'blog/list',
-                'blog/<slug:.*>' => 'blog/post'
-            ],
-        ],
+        'urlManager' => require ('urls.php')
     ],
     'params' => $params,
 ];

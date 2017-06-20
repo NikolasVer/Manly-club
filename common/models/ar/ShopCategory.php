@@ -4,6 +4,7 @@ namespace common\models\ar;
 
 use common\behaviors\SluggableBehavior;
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "shop_category".
@@ -13,7 +14,10 @@ use Yii;
  * @property integer $priority
  * @property integer $status
  * @property string $name
+ * @property string $name_extended
+ * @property string $description
  * @property string $slug
+ * @property string $image
  *
  * @property string $statusLabel
  * @property ShopCategoryProductAssn[] $categoryProductAssns
@@ -24,6 +28,8 @@ class ShopCategory extends \yii\db\ActiveRecord
     const STATUS_ACTIVE = 10;//default in db
     const STATUS_DELETED = 0;
     const STATUS_HIDDEN = 1;
+
+    public $imageFile = NULL;
 
     /**
      * @inheritdoc
@@ -52,9 +58,11 @@ class ShopCategory extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id', 'priority', 'status'], 'integer'],
-            [['name', 'slug'], 'string', 'max' => 255],
+            [['name', 'name_extended', 'slug', 'image'], 'string', 'max' => 255],
+            [['description'], 'string', 'max' => 500],
             [['status'], 'in', 'range' => array_keys(static::statusLabels())],
-            [['priority'], 'default', 'value' => 0]
+            [['priority'], 'default', 'value' => 0],
+            [['imageFile'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -69,7 +77,11 @@ class ShopCategory extends \yii\db\ActiveRecord
             'priority' => 'Приоритет',
             'status' => 'Состояние',
             'name' => 'Название',
+            'name_extended' => 'Расширенное название',
+            'description' => 'Описание',
             'slug' => 'Url',
+            'image' => 'Изображение',
+            'imageFile' => 'Загрузить новое изображение',
         ];
     }
 
@@ -105,6 +117,33 @@ class ShopCategory extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ShopProduct::className(), ['id' => 'shop_product_id'])
             ->via('categoryProductAssn');
+    }
+
+
+    public function uploadImage()
+    {
+        if ( $this->isNewRecord )
+            return FALSE;
+
+        $this->imageFile = UploadedFile::getInstance($this, 'imageFile');
+
+        if ( !($this->imageFile instanceof UploadedFile) )
+            return TRUE;
+
+        if ( !$this->validate(['imageFile']) )
+            return FALSE;
+
+        $uploadDir = Yii::getAlias('@uploads/categories');
+        $uploadUrl = '/uploads/categories/';
+        $fName = md5($this->imageFile->baseName . $this->id) . '.' . $this->imageFile->extension;
+
+        $this->image = $uploadUrl . $fName;
+
+        if ( !$this->imageFile->saveAs($uploadDir . DIRECTORY_SEPARATOR . $fName)
+            || !$this->save(FALSE, ['image']) )
+            return FALSE;
+
+        return TRUE;
     }
 
 }

@@ -415,7 +415,7 @@ $("nav#menu").mmenu({
       transitionEffect: "slideLeft"
   });
 
-    //$('.filtr-container').filterizr();
+    $('.filtr-container').filterizr();
 
     $('.simplefilter li a').click(function() {
       $('.simplefilter li a').removeClass('active');

@@ -12,6 +12,8 @@ use Yii;
  * @property string $code
  * @property double $volume
  * @property double $cost
+ *
+ * @property ShopProduct $product
  */
 class ShopProductVariety extends \yii\db\ActiveRecord
 {
@@ -49,4 +51,10 @@ class ShopProductVariety extends \yii\db\ActiveRecord
             'cost' => 'Стоимость',
         ];
     }
+
+    public function getProduct()
+    {
+        return $this->hasOne(ShopProduct::className(), ['id' => 'shop_product_id']);
+    }
+
 }

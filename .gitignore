@@ -41,3 +41,8 @@ frontend/runtime/*
 
 build/node_modules
 build/dist/*
+
+frontend/web/uploads/categories/*
+frontend/web/uploads/posts/*
+frontend/web/uploads/storage/*
+frontend/web/uploads/varieties/*
