@@ -1,7 +1,9 @@
 <?php
 namespace backend\controllers;
 
+use common\models\ar\ShopFaq;
 use Yii;
+use yii\base\Model;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -69,7 +71,23 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $models = ShopFaq::find()->indexBy('id')->all();
+        $newModels = [
+            new ShopFaq(),
+            new ShopFaq(),
+        ];
+
+        if (Model::loadMultiple($models, Yii::$app->request->post())
+            && Model::validateMultiple($models)) {
+            foreach ($models as $model) {
+                $model->save(FALSE);
+            }
+        }
+
+        return $this->render('index', [
+            'models' => $models,
+            'newModels' => $newModels
+        ]);
     }
 
     /**

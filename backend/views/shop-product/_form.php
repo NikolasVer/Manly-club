@@ -56,11 +56,15 @@ $this->registerJs($js);
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'short_name')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'shop_faq_id')->dropDownList($faqList, ['prompt' => 'Не выбрано']) ?>
             <?= $form->field($model, 'status')->dropDownList($model::statusLabels()) ?>
+            <div>
+                <label>Категории</label>
+            </div>
         </div>
     </div>
 

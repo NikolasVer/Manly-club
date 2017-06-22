@@ -1,0 +1,21 @@
+.badge {
+    position: relative;
+    padding: 5px 25px 5px 10px;
+    margin: 3px;
+}
+.badge > .close {
+    position: absolute;
+    right: 7px;
+    top: -1px;
+}
+
+.well-sm {
+    position: relative;
+}
+.varieties-list .close {
+    position: absolute;
+    right: 10px;
+    z-index: 2;
+    top: 2px;
+    color: red;
+}

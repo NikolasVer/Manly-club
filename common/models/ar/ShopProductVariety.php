@@ -14,6 +14,7 @@ use Yii;
  * @property double $cost
  *
  * @property ShopProduct $product
+ * @property ShopProductVarietyAttachment[] $attachments
  */
 class ShopProductVariety extends \yii\db\ActiveRecord
 {
@@ -55,6 +56,12 @@ class ShopProductVariety extends \yii\db\ActiveRecord
     public function getProduct()
     {
         return $this->hasOne(ShopProduct::className(), ['id' => 'shop_product_id']);
+    }
+
+    public function getAttachments()
+    {
+        return $this->hasMany(ShopProductVarietyAttachment::className(),
+            ['shop_product_variety_id' => 'id']);
     }
 
 }

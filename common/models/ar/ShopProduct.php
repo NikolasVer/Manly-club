@@ -11,6 +11,8 @@ use Yii;
  * @property integer $id
  * @property integer $shop_faq_id
  * @property string $name
+ * @property string $short_name
+ * @property string $label
  * @property string $description_cut
  * @property string $description_full
  * @property string $slug
@@ -54,10 +56,11 @@ class ShopProduct extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['shop_faq_id', 'status'], 'integer'],
             [['name'], 'required'],
+            [['shop_faq_id', 'status'], 'integer'],
             [['description_cut', 'description_full'], 'string'],
-            [['name', 'slug'], 'string', 'max' => 255],
+            [['label'], 'string', 'max' => 100],
+            [['name', 'short_name', 'slug'], 'string', 'max' => 255],
             [['status'], 'in', 'range' => array_keys(static::statusLabels())],
             [['slug'], 'unique'],
         ];
@@ -71,7 +74,9 @@ class ShopProduct extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'shop_faq_id' => 'FAQ',
-            'name' => 'Название',
+            'name' => 'Название (На странице товара)',
+            'short_name' => 'Короткое название (Каталог)',
+            'label' => 'Лейбел',
             'description_cut' => 'Описание в каталоге',
             'description_full' => 'Описание в товаре',
             'slug' => 'URL',

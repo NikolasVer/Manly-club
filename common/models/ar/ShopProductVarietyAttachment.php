@@ -42,14 +42,14 @@ class ShopProductVarietyAttachment extends \yii\db\ActiveRecord
             [['url_local', 'url_remote'], 'string', 'max' => 255],
             [['type'], 'in', 'range' => array_keys(static::typeLabels())],
             [['uploadFile'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'png, jpg, mp4'],
-            [['uploadFile', 'url_remote'], 'required', 'when' => function ( $model ) {/* @var static $model */
+            /*[['uploadFile', 'url_remote'], 'required', 'when' => function ( $model ) {
                 return !$model->url_local && !$model->url_remote;
             }, 'whenClient' => "function (attr, val, m) {
                 var el = $('#' + attr.id).closest('form').find('[name=\""
                 . $this->formName() . "[' + (attr.name == 'url_remote' ? 'uploadFile' : 'url_remote') + ']\"][type!=hidden]');
                 //console.log(el);
                 return el.length == 0 || el.val() == '';
-            }", 'message' => 'Укажите удаленную ссылку или загрузите файл']
+            }", 'message' => 'Укажите удаленную ссылку или загрузите файл']*/
         ];
     }
 
@@ -86,12 +86,14 @@ class ShopProductVarietyAttachment extends \yii\db\ActiveRecord
         ];
     }
 
-    public function loadFile()
+    public function loadFile($customFile = FALSE)
     {
         if ( $this->isNewRecord )
             return FALSE;
 
-        $this->uploadFile = UploadedFile::getInstance($this, 'uploadFile');
+        $this->uploadFile = $customFile !== FALSE
+            ? $customFile
+            : UploadedFile::getInstance($this, 'uploadFile');
 
         if ( !($this->uploadFile instanceof UploadedFile) )
             return TRUE;

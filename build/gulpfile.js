@@ -109,14 +109,3 @@ gulp.task('build', ['clean', 'img', 'css', 'less', 'scripts'], function(){
       .pipe(gulp.dest('dist/videobg'));
 
 });
-
-gulp.task('move', [], function () {
-  gulp.src('dist/css/*.css')
-      .pipe(gulp.dest('../frontend/web/css'));
-  gulp.src('dist/js/*.js')
-      .pipe(gulp.dest('../frontend/web/js'));
-  gulp.src('dist/videobg/*')
-      .pipe(gulp.dest('../frontend/web/videobg'));
-  gulp.src('dist/images/**/*')
-      .pipe(gulp.dest('../frontend/web/images'));
-});

@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\ProductExtendedForm;
+use common\models\ar\ShopCategory;
 use common\models\ar\ShopFaq;
 use common\models\ar\ShopProductVariety;
 use common\models\ar\ShopProductVarietyAttachment;
@@ -246,6 +248,27 @@ class ShopProductController extends Controller
             'variety' => $variety,
             'model' => $model,
             'attachments' => $attachments
+        ]);
+    }
+
+    public function actionEdit($id = NULL)
+    {
+        $model = new ProductExtendedForm();
+        $model->initProduct($id);
+
+        $faqList = ArrayHelper::map(ShopFaq::find()->select(['id', 'title'])
+            ->asArray()->all(), 'id', 'title');
+        $categoryList = ArrayHelper::map(ShopCategory::find()->active()
+            ->select(['id', 'name'])->asArray()->all(), 'id', 'name');
+
+        if($model->load(Yii::$app->request->post())) {
+            $model->save();
+        }
+
+        return $this->render('edit', [
+            'model' => $model,
+            'faqList' => $faqList,
+            'categoryList' => $categoryList
         ]);
     }
 }
