@@ -14,6 +14,7 @@ use yii\web\UploadedFile;
 /***
  * Class ProductExtendedForm
  * @package backend\models
+ * @property integer|NULL $productId
  */
 class ProductExtendedForm extends Model
 {
@@ -100,6 +101,7 @@ class ProductExtendedForm extends Model
 
 
     /***
+     * @param integer $index
      * @param ShopProductVariety $variety
      */
     protected function saveAttachments($index, $variety)
@@ -204,11 +206,20 @@ class ProductExtendedForm extends Model
         $pModel->description_full = $this->productDescr;
         $pModel->description_cut = $this->productCatalogDescr;
         $pModel->save(FALSE);
+        $this->productId = $pModel->id;
 
         $this->saveCategories($pModel);
         $this->saveVarieties($pModel);
 
         return TRUE;
+    }
+
+    /***
+     * @return integer|NULL
+     */
+    public function getProductId()
+    {
+        return $this->productId;
     }
 
 }

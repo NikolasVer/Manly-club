@@ -51,12 +51,10 @@ $this->params['showVideoHead'] = TRUE;
                         <img src="<?= $category->image; ?>" alt="">
                     </div>
                 </div>
-                <div class="col__ttl"><?= $category->name; ?></div>
+                <div class="col__ttl"><?= $category->landing_name ? : $category->name; ?></div>
                 <ul class="col__btn-list">
-                    <li>
-                        <a class="col__btn-ico ico-01" href="#"></a>
-                    </li>
                     <li><span class="col__btn-ico ico-02"></span></li>
+                    <li><a class="col__btn-ico ico-01" href="#"></a></li>
                 </ul>
                 <div class="col__box-inf">
                     <ul class="col__btn-list-box">
@@ -66,7 +64,7 @@ $this->params['showVideoHead'] = TRUE;
                         <li><span class="col__btn-ico ico-02"></span></li>
                     </ul>
                     <div class="col__ttl-box">
-                        <?= $category->name_extended ? : $category->name; ?>
+                        <?= $category->name; ?>
                     </div>
                     <p><?= $category->description; ?></p>
                 </div>

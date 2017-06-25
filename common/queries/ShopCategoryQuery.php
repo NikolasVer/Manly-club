@@ -67,4 +67,14 @@ class ShopCategoryQuery extends \yii\db\ActiveQuery
         return $this->orderBy([ShopCategory::tableName() . '.priority' => $desc ? SORT_DESC : SORT_ASC]);
     }
 
+
+    /***
+     * @param bool $show
+     * @return static
+     */
+    public function landing($show = TRUE)
+    {
+        return $this->andWhere([ShopCategory::tableName() . '.show_in_landing' => (boolean)$show]);
+    }
+
 }

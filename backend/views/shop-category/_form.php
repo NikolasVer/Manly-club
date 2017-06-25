@@ -16,13 +16,15 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="col-md-6">
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'name_extended')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'landing_name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'catalog_name')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'description')->textarea(); ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'status')->dropDownList($model::statusLabels()) ?>
             <?= $form->field($model, 'priority')->input('number') ?>
             <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'show_in_landing')->checkbox(); ?>
         </div>
     </div>
 
@@ -47,7 +49,7 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить изменения',
+        <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Сохранить изменения',
             ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

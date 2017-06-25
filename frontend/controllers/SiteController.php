@@ -74,7 +74,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        $cats = ShopCategory::find()->active()->priority()->root()->all();
+        $cats = ShopCategory::find()
+            ->root()
+            ->active()
+            ->priority()
+            ->landing()
+            ->all();
 
         return $this->render('index', [
             'categories' => $cats

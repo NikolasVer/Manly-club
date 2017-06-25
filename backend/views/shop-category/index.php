@@ -16,25 +16,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Создать категорию', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить категорию', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
 
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            //'parent_id',
-            'name',
             'priority',
+            'name',
             [
                 'attribute' => 'status',
                 'value' => function ($m) {/* @var \common\models\ar\ShopCategory $m */
                     return $m->statusLabel;
                 },
                 'filter' => $searchModel::statusLabels()
+            ],
+            [
+                'attribute' => 'show_in_landing',
+                'format' => 'boolean',
+                'filter' => Html::activeDropDownList($searchModel, 'show_in_landing', [
+                    1 => 'Да',
+                    0 => 'Нет'
+                ], ['class' => 'form-control', 'prompt' => ''])
             ],
             'slug',
 

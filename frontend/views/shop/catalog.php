@@ -1,9 +1,13 @@
 <?php
 
-/* @var \common\models\ar\ShopCategory[] $categories */
 use yii\helpers\ArrayHelper;
 
+/* @var \common\models\ar\ShopCategory[] $categories */
 /* @var \common\models\ar\ShopProduct[] $products */
+
+$this->params['bodyOptions'] = [
+    'class' => 'body-color-grey2'
+];
 
 ?>
 
@@ -23,7 +27,8 @@ use yii\helpers\ArrayHelper;
                 <?php foreach($categories as $category): ?>
                 <li>
                     <a data-filter="<?= $category->id ?>"
-                       class="filtr-button" href="javascript:;"><?= $category->name; ?></a>
+                       class="filtr-button" href="javascript:;">
+                        <?= $category->catalog_name ? : $category->name; ?></a>
                 </li>
                 <?php endforeach; ?>
             </ul>
@@ -59,10 +64,20 @@ use yii\helpers\ArrayHelper;
                         <div class="shop__bottom-information">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
-                                    <span class="shop__ml">20 мл</span>
+                                    <span class="shop__ml">
+                                        <?php foreach ($product->varieties as $i => $variety): ?>
+                                        <span class="<?php if($i==0)echo 'active'; ?>"
+                                              data-index="<?= $i ?>"><?= $variety->volume; ?> мл</span>
+                                        <?php endforeach; ?>
+                                    </span>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                                    <span class="shop__price">₴ 160.00</span>
+                                    <span class="shop__price">
+                                        <?php foreach ($product->varieties as $i => $variety): ?>
+                                            <span class="<?php if($i==0)echo 'active'; ?>"
+                                                  data-index="<?= $i ?>">₴ <?= $variety->cost; ?></span>
+                                        <?php endforeach; ?>
+                                    </span>
                                 </div>
                             </div>
                         </div>

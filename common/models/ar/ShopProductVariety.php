@@ -10,8 +10,9 @@ use Yii;
  * @property integer $id
  * @property integer $shop_product_id
  * @property string $code
- * @property double $volume
+ * @property string $volume
  * @property double $cost
+ * @property integer $priority
  *
  * @property ShopProduct $product
  * @property ShopProductVarietyAttachment[] $attachments
@@ -32,10 +33,13 @@ class ShopProductVariety extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['shop_product_id', 'code', 'volume', 'cost'], 'required'],
+            [['shop_product_id', 'volume', 'cost'], 'required'],
             [['shop_product_id'], 'integer'],
-            [['volume', 'cost'], 'number'],
+            [['cost'], 'number'],
             [['code'], 'string', 'max' => 20],
+            [['volume'], 'string', 'max' => 100],
+            [['code'], 'default', 'value' => ''],
+            [['priority'], 'default', 'value' => 0],
         ];
     }
 
@@ -50,6 +54,7 @@ class ShopProductVariety extends \yii\db\ActiveRecord
             'code' => 'Код товара',
             'volume' => 'Объем',
             'cost' => 'Стоимость',
+            'priority' => 'Приоритет',
         ];
     }
 

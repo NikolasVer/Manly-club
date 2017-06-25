@@ -2,9 +2,9 @@
 
 namespace common\models\ar;
 
-use common\behaviors\SluggableBehavior;
 use Yii;
 use yii\web\UploadedFile;
+use common\behaviors\SluggableBehavior;
 
 /**
  * This is the model class for table "shop_category".
@@ -14,10 +14,12 @@ use yii\web\UploadedFile;
  * @property integer $priority
  * @property integer $status
  * @property string $name
- * @property string $name_extended
+ * @property string $landing_name
+ * @property string $catalog_name
  * @property string $description
  * @property string $slug
  * @property string $image
+ * @property boolean $show_in_landing
  *
  * @property string $statusLabel
  * @property ShopCategoryProductAssn[] $categoryProductAssns
@@ -57,11 +59,13 @@ class ShopCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'status'], 'required'],
             [['parent_id', 'priority', 'status'], 'integer'],
-            [['name', 'name_extended', 'slug', 'image'], 'string', 'max' => 255],
+            [['name', 'landing_name', 'catalog_name', 'slug', 'image'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 500],
+            [['show_in_landing'], 'boolean'],
             [['status'], 'in', 'range' => array_keys(static::statusLabels())],
-            [['priority'], 'default', 'value' => 0],
+            [['priority', 'show_in_landing'], 'default', 'value' => 0],
             [['imageFile'], 'file', 'skipOnEmpty' => TRUE, 'extensions' => 'png, jpg'],
         ];
     }
@@ -76,11 +80,13 @@ class ShopCategory extends \yii\db\ActiveRecord
             'parent_id' => 'Родительская категория',
             'priority' => 'Приоритет',
             'status' => 'Состояние',
-            'name' => 'Название',
-            'name_extended' => 'Расширенное название',
+            'name' => 'Полное название',
+            'landing_name' => 'Название на главной',
+            'catalog_name' => 'Название в каталоге',
             'description' => 'Описание',
             'slug' => 'Url',
             'image' => 'Изображение',
+            'show_in_landing' => 'Показывать на главной',
             'imageFile' => 'Загрузить новое изображение',
         ];
     }

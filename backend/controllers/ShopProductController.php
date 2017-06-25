@@ -261,8 +261,8 @@ class ShopProductController extends Controller
         $categoryList = ArrayHelper::map(ShopCategory::find()->active()
             ->select(['id', 'name'])->asArray()->all(), 'id', 'name');
 
-        if($model->load(Yii::$app->request->post())) {
-            $model->save();
+        if( $model->load(Yii::$app->request->post()) && $model->save() ) {
+            return $this->redirect(['edit', 'id' => $model->productId]);
         }
 
         return $this->render('edit', [

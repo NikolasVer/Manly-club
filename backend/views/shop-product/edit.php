@@ -18,6 +18,8 @@ ProductExtendedEditAsset::register($this);
 
 <div id="attachmentTemplate" class="hidden">
     <li class="list-group-item">
+        <button type="button" class="close close-file" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
         <div class="row">
             <div class="col-md-1">
                 <?= Html::textInput($model->formName()
@@ -46,9 +48,15 @@ ProductExtendedEditAsset::register($this);
 <div id="varietyTemplate" data-index="<?= count($model->varieties)
     ? (max(array_keys($model->varieties)) + 1) : 0; ?>" class="hidden">
     <div class="well well-sm varieties-list">
-        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close close-variety" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
         <div class="row">
             <div class="col-md-2 col-sm-2 col-xs-4">
+                <div class="form-group">
+                    <label class="control-label">Приоритет</label>
+                    <?= Html::textInput($model->formName() . '[varieties][{{index}}][priority]',
+                        NULL, ['class' => 'form-control']); ?>
+                </div>
                 <div class="form-group">
                     <label class="control-label">Код товара</label>
                     <?= Html::textInput($model->formName() . '[varieties][{{index}}][code]',
@@ -176,6 +184,11 @@ ProductExtendedEditAsset::register($this);
                 <div class="row">
                     <div class="col-md-2 col-sm-2 col-xs-4">
                         <div class="form-group">
+                            <label class="control-label">Приоритет</label>
+                            <?= Html::activeTextInput($model, "varieties[$i][priority]",
+                                ['class' => 'form-control input-sm']) ?>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label">Код товара</label>
                             <?= Html::activeTextInput($model, "varieties[$i][code]",
                                 ['class' => 'form-control input-sm']) ?>
@@ -249,7 +262,7 @@ ProductExtendedEditAsset::register($this);
     </div>
 
 
-    <button type="submit">Go</button>
+    <button type="submit" class="btn btn-success">Сохранить</button>
 
     <?php ActiveForm::end(); ?>
 

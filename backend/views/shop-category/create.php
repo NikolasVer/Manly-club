@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\ar\ShopCategory */
 
-$this->title = 'Создать';
+$this->title = 'Добавление';
 $this->params['breadcrumbs'][] = ['label' => 'Магазин - Категории', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

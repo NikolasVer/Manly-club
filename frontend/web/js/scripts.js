@@ -1,7 +1,7 @@
 $(document).ready(function() {
 jQuery.fn.exists = function(){return this.length>0;}
 
-    /*$('.header__video_bg').videoBG({
+    $('.header__video_bg').videoBG({
     position:"absolute",
     zIndex:1,
     mp4:'videobg/header_bg.mp4',
@@ -10,7 +10,7 @@ jQuery.fn.exists = function(){return this.length>0;}
     poster:'videobg/header_bg.jpg',
     opacity:1,
     fullscreen:true,
-  });*/
+  });
 
   if ($('.rellax').exists()) {
     var rellax = new Rellax('.rellax');
@@ -148,6 +148,12 @@ jQuery.fn.exists = function(){return this.length>0;}
     });
 
     $(".shop__item-slider").owlCarousel({
+        afterMove: function() {
+            var o = $(this)[0];
+            var c = o.$elem.next();
+            c.find('.shop__ml span, .shop__price span').removeClass('active');
+            c.find('[data-index="' + o.currentItem + '"]').addClass('active');
+        },
         navigation: false,
         pagination: true,
         paginationNumbers: false,
@@ -415,7 +421,9 @@ $("nav#menu").mmenu({
       transitionEffect: "slideLeft"
   });
 
-    $('.filtr-container').filterizr();
+    var filterContainer = $('.filtr-container');
+    if(filterContainer.length)
+        filterContainer.filterizr();
 
     $('.simplefilter li a').click(function() {
       $('.simplefilter li a').removeClass('active');
@@ -439,7 +447,8 @@ $("nav#menu").mmenu({
     $('.groups-data .active').removeClass('active');
     $('.groups .active').removeClass('active');
 
-    $(this).addClass('active');
+    //$(this).addClass('active');
+    $('.groups [data-id="' + id + '"]').addClass('active');
     $('#group-' + id).addClass('active');
   });
 

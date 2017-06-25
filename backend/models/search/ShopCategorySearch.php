@@ -20,6 +20,7 @@ class ShopCategorySearch extends ShopCategory
         return [
             [['id', 'parent_id', 'priority', 'status'], 'integer'],
             [['name', 'slug'], 'safe'],
+            [['show_in_landing'], 'boolean'],
         ];
     }
 
@@ -68,6 +69,8 @@ class ShopCategorySearch extends ShopCategory
             $query->andFilterWhere(['status' => $this->status]);
         else
             $query->andWhere(['<>', 'status', static::STATUS_DELETED]);
+
+        $query->andFilterWhere(['show_in_landing' => $this->show_in_landing]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'slug', $this->name]);

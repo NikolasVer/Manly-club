@@ -8,6 +8,8 @@ return [
     'baseUrl' => 'http://manly.local',
     'rules' => [
         'blog' => 'blog/list',
-        'blog/<slug:.*>' => 'blog/post'
+        'blog/<slug:.*>' => 'blog/post',
+        'shop' => 'shop/catalog',
+        'shop/<slug:.*>' => 'shop/product'
     ],
 ];

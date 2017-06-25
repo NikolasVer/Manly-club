@@ -1,6 +1,7 @@
 <?php
 
 namespace common\queries;
+use common\models\ar\ShopProduct;
 
 /**
  * This is the ActiveQuery class for [[\common\models\ar\ShopProduct]].
@@ -31,4 +32,31 @@ class ShopProductQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    /***
+     * @param integer $status
+     * @return static
+     */
+    public function status($status)
+    {
+        return $this->andWhere([ShopProduct::tableName() . '.status' => $status]);
+    }
+
+    /***
+     * @return static
+     */
+    public function active()
+    {
+        return $this->status(ShopProduct::STATUS_ACTIVE);
+    }
+
+    /***
+     * @param string $slug
+     * @return static
+     */
+    public function slug($slug)
+    {
+        return $this->andWhere([ShopProduct::tableName() . '.slug' => $slug]);
+    }
+
 }

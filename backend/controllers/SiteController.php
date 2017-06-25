@@ -71,23 +71,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $models = ShopFaq::find()->indexBy('id')->all();
-        $newModels = [
-            new ShopFaq(),
-            new ShopFaq(),
-        ];
-
-        if (Model::loadMultiple($models, Yii::$app->request->post())
-            && Model::validateMultiple($models)) {
-            foreach ($models as $model) {
-                $model->save(FALSE);
-            }
-        }
-
-        return $this->render('index', [
-            'models' => $models,
-            'newModels' => $newModels
-        ]);
+        return $this->render('index');
     }
 
     /**

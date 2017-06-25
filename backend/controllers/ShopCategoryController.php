@@ -63,7 +63,9 @@ class ShopCategoryController extends Controller
      */
     public function actionCreate()
     {
-        $model = new ShopCategory();
+        $model = new ShopCategory([
+            'priority' => ShopCategory::find()->root()->max('priority') + 1
+        ]);
 
         if ($model->load(Yii::$app->request->post()) && $model->save() && $model->uploadImage()) {
             return $this->redirect(['view', 'id' => $model->id]);
