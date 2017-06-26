@@ -29,11 +29,11 @@ $showVideoHead = ArrayHelper::getValue($this->params, 'showVideoHead', FALSE);
 <div id="page">
     <nav id="menu">
         <ul class="header__nav-items">
-            <li><a href="">Магазин</a></li>
-            <li><a href="">Блог</a></li>
-            <li><a href="">О нас</a></li>
-            <li><a href="">Помощь</a></li>
-            <li><a href="">Партнеры</a></li>
+            <li><?= Html::a('Магазин', ['shop/catalog']); ?></li>
+            <li><?= Html::a('Блог', ['blog/list']); ?></li>
+            <li><?= Html::a('О нас', '#'); ?></li>
+            <li><?= Html::a('Помощь', '#'); ?></li>
+            <li><?= Html::a('Партнеры', '#'); ?></li>
         </ul>
     </nav>
     <header class="header">
