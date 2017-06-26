@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $title
  * @property string $content
+ * @property array $parsedContent
  */
 class ShopFaq extends \yii\db\ActiveRecord
 {
@@ -44,4 +45,28 @@ class ShopFaq extends \yii\db\ActiveRecord
             'content' => 'Content',
         ];
     }
+
+    public function getParsedContent()
+    {
+        preg_match_all('/<h1.*\>.*\<\/h1\>?/', $this->content, $headers);
+
+        $headers = $headers[0];
+        $cnt = count($headers);
+        $res = [];
+
+        foreach ($headers as $i => $header) {
+            $header = trim($header);
+            $start = mb_strpos($this->content, $header, NULL, 'UTF-8');
+            $end = $i < $cnt - 2
+                ? mb_strpos($this->content, $headers[$i+1], NULL, 'UTF-8') : mb_strlen($this->content);
+            $end--;
+            $res[] = [
+                preg_replace('/<h1.*>(.*)<\/h1>/', '$1', $header),
+                mb_substr($this->content, $start, $end - $start, 'UTF-8')
+            ];
+        }
+
+        return $res;
+    }
+
 }

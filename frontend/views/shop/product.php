@@ -1,5 +1,7 @@
 <?php
 
+use yii\helpers\Html;
+
 /* @var \yii\web\View $this */
 /* @var \common\models\ar\ShopProduct $model */
 
@@ -81,7 +83,10 @@ $this->params['bodyOptions'] = [
                                     <ul class="product__icons">
                                         <li class="visible-sm"><i class="ico-social"></i></li>
                                         <li><a class="fancybox-02" href="#popup-delivery"><span class="ico-delivery"></span></a></li>
-                                        <li><span class="ico-faq"></span></li>
+                                        <?php if($model->shop_faq_id): ?>
+                                        <li><?= Html::a('', ['shop/faq', 'productSlug' => $model->slug],
+                                                ['class' => 'ico-faq']); ?></li>
+                                        <?php endif; ?>
                                     </ul>
                                 </div>
                             </div>

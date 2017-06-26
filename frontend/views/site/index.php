@@ -1,6 +1,8 @@
 <?php
 
 /* @var $this yii\web\View */
+use yii\helpers\Html;
+
 /* @var $categories \common\models\ar\ShopCategory[] */
 
 $this->title = 'Manly Club - Главная';
@@ -54,12 +56,14 @@ $this->params['showVideoHead'] = TRUE;
                 <div class="col__ttl"><?= $category->landing_name ? : $category->name; ?></div>
                 <ul class="col__btn-list">
                     <li><span class="col__btn-ico ico-02"></span></li>
-                    <li><a class="col__btn-ico ico-01" href="#"></a></li>
+                    <li>
+                        <?= Html::a('', ['shop/catalog'], ['class' => 'col__btn-ico ico-01']) ?>
+                    </li>
                 </ul>
                 <div class="col__box-inf">
                     <ul class="col__btn-list-box">
                         <li>
-                            <a class="col__btn-ico ico-01" href="#"></a>
+                            <?= Html::a('', ['shop/catalog'], ['class' => 'col__btn-ico ico-01']) ?>
                         </li>
                         <li><span class="col__btn-ico ico-02"></span></li>
                     </ul>

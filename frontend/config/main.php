@@ -9,7 +9,7 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'cart'],
     'controllerNamespace' => 'frontend\controllers',
     'layout' => 'manly_template',
     'components' => [
@@ -38,7 +38,10 @@ return [
             'errorAction' => 'site/error',
         ],
 
-        'urlManager' => require ('urls.php')
+        'urlManager' => require ('urls.php'),
+        'cart' => [
+            'class' => 'frontend\components\Cart'
+        ]
     ],
     'params' => $params,
 ];

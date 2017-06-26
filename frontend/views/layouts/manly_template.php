@@ -11,6 +11,7 @@ ManlyAsset::register($this);
 
 $bodyOptions = ArrayHelper::getValue($this->params, 'bodyOptions', []);
 $showVideoHead = ArrayHelper::getValue($this->params, 'showVideoHead', FALSE);
+$showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
 
 ?>
 
@@ -40,7 +41,7 @@ $showVideoHead = ArrayHelper::getValue($this->params, 'showVideoHead', FALSE);
         <?php if ( $showVideoHead ): ?>
         <section class="header__bg">
             <div class="header__video_bg rellax" data-rellax-speed="-5"></div>
-            <div class="header__big-logo rellax" data-rellax-speed="-9"></div>
+            <div class="header__big-logo"></div>
             <div class="container">
                 <div class="header__top">
                     <strong role="banner" class="header__logo-top"><a href="/">MANLY CLUB est.2014</a></strong>
@@ -54,6 +55,7 @@ $showVideoHead = ArrayHelper::getValue($this->params, 'showVideoHead', FALSE);
     <main class="main">
         <?= $content; ?>
     </main>
+    <?php if ($showFooter): ?>
     <footer class="footer">
         <div class="container">
             <div class="row">
@@ -118,6 +120,81 @@ $showVideoHead = ArrayHelper::getValue($this->params, 'showVideoHead', FALSE);
             </div>
         </div>
     </footer>
+    <?php endif; ?>
+</div>
+<div class="popups">
+    <div class="popup-01" id="popup-lodin">
+        <div class="container">
+            <div class="popup-01__form-popup">
+                <div class="shop__swich">
+                    <ul class="groups3">
+                        <li><a data-id="10" class="active" href="">Вход</a></li>
+                        <li><a data-id="11" href="">Регистрация</a></li>
+                    </ul>
+                </div>
+                <div class="groups-data3">
+                    <div id="group-10" class="active">
+                        <form action="">
+                            <fieldset>
+                                <input type="email" class="about-us__form-input mail-input" placeholder="Email">
+                                <input type="password" class="about-us__form-input pass-input" placeholder="Пароль">
+                                <div class="row remember-block">
+                                    <div class="col-lg-7">
+                                        <input type="checkbox" id="remember" class="popup__radio-btn">
+                                        <label for="remember">Запомнить меня</label>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <a href="#forget_pass" class="forget_pass fancybox">Забыл Пароль</a>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Войти" class="btn-05">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div id="group-11">
+                        <form action="">
+                            <fieldset>
+                                <input type="email" class="about-us__form-input mail-input" placeholder="Email">
+                                <input type="password" class="about-us__form-input pass-input" placeholder="Пароль">
+                                <div class="row remember-block">
+                                    <div class="col-lg-7">
+                                        <input type="checkbox" id="remember" class="popup__radio-btn">
+                                        <label for="remember">Запомнить меня</label>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <a href="" class="forget_pass">Мой Профиль</a>
+                                    </div>
+                                </div>
+                                <input type="submit" value="Войти" class="btn-06">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-01__social">
+                <div class="ttl-03"><span>или</span></div>
+                <div class="ttl-sub text-center">Войти через социальную сеть:</div>
+                <ul class="social-link">
+                    <li><a class="vk" href=""></a></li>
+                    <li><a class="fb" href=""></a></li>
+                    <li><a class="tw" href=""></a></li>
+                    <li><a class="gp" href=""></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="popup-01" id="forget_pass">
+        <div class="container">
+            <div class="popup-01__form-popup">
+                <form action="">
+                    <fieldset>
+                        <input type="email" class="about-us__form-input mail-input" placeholder="Email">
+                        <input type="submit" value="Сбросить пароль" class="btn-06">
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <?php $this->endBody() ?>
 <?= Html::endTag('body'); ?>

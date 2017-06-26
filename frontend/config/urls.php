@@ -10,6 +10,7 @@ return [
         'blog' => 'blog/list',
         'blog/<slug:.*>' => 'blog/post',
         'shop' => 'shop/catalog',
+        'shop/<productSlug:.*>/faq' => 'shop/faq',
         'shop/<slug:.*>' => 'shop/product'
     ],
 ];

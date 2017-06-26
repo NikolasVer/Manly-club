@@ -41,7 +41,8 @@ AppAsset::register($this);
             'label' => 'Магазин',
             'items' => [
                 ['label' => 'Категории', 'url' => ['shop-category/index']],
-                ['label' => 'Товары', 'url' => ['shop-product/index']]
+                ['label' => 'Товары', 'url' => ['shop-product/index']],
+                ['label' => 'FAQ', 'url' => ['shop-faq/index']]
             ]
         ]
     ];

@@ -48,10 +48,10 @@ $this->params['bodyOptions'] = [
                             <span class="shop__info"></span>
                         </div>
                         <div class="text-center">
-                            <div class="ttl">
+                            <a class="ttl" href="<?= Yii::$app->urlManager->createUrl(['shop/product', 'slug' => $product->slug]); ?>">
                                 <?= $product->short_name ?>
                                 <span><?= $product->label ?></span>
-                            </div>
+                            </a>
                         </div>
                         <div class="txt">
                             <?= $product->description_cut; ?>

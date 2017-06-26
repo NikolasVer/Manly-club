@@ -22,6 +22,7 @@ use Yii;
  * @property ShopCategoryProductAssn[] $categoryProductAssns
  * @property ShopCategory[] $categories
  * @property ShopProductVariety[] $varieties
+ * @property ShopFaq $faq
  */
 class ShopProduct extends \yii\db\ActiveRecord
 {
@@ -122,4 +123,10 @@ class ShopProduct extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ShopProductVariety::className(), ['shop_product_id' => 'id']);
     }
+
+    public function getFaq()
+    {
+        return $this->hasOne(ShopFaq::className(), ['id' => 'shop_faq_id']);
+    }
+
 }

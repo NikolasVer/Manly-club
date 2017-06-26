@@ -913,6 +913,9 @@ body {
 }
 
 .header__top {
+  position: fixed;
+  left: 0;
+  right: 0;
   .header__logo-top {
     display: block;
     margin: 8% auto 4%;
@@ -975,14 +978,22 @@ body {
     }
   }
   .header__big-logo {
-    position: absolute;
-    bottom: 20%;
+    position: fixed;
+    top: 375px;
+    //bottom: 20%;
     width: 511px;
     height: 353px;
     left: 50%;
     margin-left: -255px;
     background-image: url("../images/logo__header__bigl.png");
     z-index: 4;
+    transition: opacity .5s;
+    &.sticked-fix {
+      position: absolute;
+      bottom: 0;
+      top: auto;
+      opacity: 0;
+    }
   }
 
   &:after {
@@ -3560,7 +3571,7 @@ textarea.about-us__form-input {
           left: -3px;
         }
       }
-      &:hover {
+      &:hover, &:focus, &:active {
         text-decoration: none;
         color: @color_2;
       }
@@ -3597,15 +3608,18 @@ textarea.about-us__form-input {
   color: @color_1;
   .op(14px, 26px);
   letter-spacing: 0.3px;
-  .ttl {
+  hr {
+    margin: 27px 0 29px;
+  }
+  .ttl, h1 {
 
     color: @color_1;
     .ptsn(30px, 40px);
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    border-bottom: 1px solid @color_4;
-    margin: 0 0 29px;
-    padding-bottom: 27px;
+    //border-bottom: 1px solid @color_4;
+    margin: 0 0 27px;
+    //padding-bottom: 27px;
     padding-top: 20px;
   }
   p {
@@ -4216,6 +4230,7 @@ textarea.about-us__form-input {
     }
   }
   .ttl {
+    text-decoration: none;
     text-align: center;
     text-transform: uppercase;
     color: @color_1;

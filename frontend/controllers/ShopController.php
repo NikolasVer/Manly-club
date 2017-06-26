@@ -36,4 +36,12 @@ class ShopController extends Controller
 
     }
 
+    public function actionFaq($productSlug)
+    {
+        $model = ShopProduct::find()->slug($productSlug)->one()->faq;
+        return $this->render('faq', [
+            'model' => $model
+        ]);
+    }
+
 }
