@@ -3,9 +3,9 @@ return [
     'class' => 'yii\web\UrlManager',
     'enablePrettyUrl' => true,
     'showScriptName' => false,
-    'hostInfo' => 'http://manly.local',
-    'scriptUrl' => 'http://manly.local',
-    'baseUrl' => 'http://manly.local',
+    'hostInfo' => 'http://manly.inimini.ru',
+    'scriptUrl' => 'http://manly.inimini.ru',
+    'baseUrl' => 'http://manly.inimini.ru',
     'rules' => [
         'blog' => 'blog/list',
         'blog/<slug:.*>' => 'blog/post',
