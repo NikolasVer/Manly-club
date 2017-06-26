@@ -67,7 +67,7 @@ $this->params['bodyOptions'] = [
                                     <span class="shop__ml">
                                         <?php foreach ($product->varieties as $i => $variety): ?>
                                         <span class="<?php if($i==0)echo 'active'; ?>"
-                                              data-index="<?= $i ?>"><?= $variety->volume; ?> мл</span>
+                                              data-index="<?= $i ?>"><?= $variety->volume; ?></span>
                                         <?php endforeach; ?>
                                     </span>
                                 </div>
