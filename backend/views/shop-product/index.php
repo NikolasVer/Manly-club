@@ -36,7 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => $searchModel::statusLabels()
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'edit' => function($url){
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url);
+                    }
+                ],
+                'template' => '{view} {edit} {delete}'
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
