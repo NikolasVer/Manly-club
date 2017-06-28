@@ -44,7 +44,8 @@ $this->params['bodyOptions'] = [
                              'shop_category_id')); ?>">
                     <div class="shop__item">
                         <div class="shop__iocns">
-                            <span class="shop__card"></span>
+                            <span class="shop__card" data-name="<?= $product->slug; ?>"
+                                  data-item="0"></span>
                             <span class="shop__info"></span>
                         </div>
                         <div class="text-center">

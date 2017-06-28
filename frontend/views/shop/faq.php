@@ -10,6 +10,7 @@ $this->params['showFooter'] = FALSE;
 
 
 $content = $model->parsedContent;
+
 ?>
 
 <div class="faq-page">

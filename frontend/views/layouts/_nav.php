@@ -32,14 +32,31 @@ use yii\helpers\Html;
                     </form>
                 </div>
             </li>
+            <?php if(Yii::$app->user->isGuest): ?>
             <li><a class="fancybox" href="#popup-lodin"><i class="header__login-icon hidden-sm"></i></a></li>
-            <li>
-                <i class="header__cart-icon"></i>
-                <div class="header__box-add-cart">
-                    <div class="wrap-in">
-                        <div class="ttl none-products">В Корзине нет товаров</div>
+            <?php else: ?>
+                <li>
+                    <span class="avatar hidden-sm"><img src="images/img-36.png" alt=""></span>
+                    <div class="header__user-settings">
+                        <div class="user-name">
+                            <a class="ico-avatar" href=""><?= Yii::$app->user->identity->username ?></a>
+                        </div>
+                        <ul>
+                            <li><div class="user-settings"><a class="ico-settings" href="">Настройки</a></div></li>
+                            <li>
+                                <div class="user-exit">
+                                    <?= Html::a('Выйти', ['site/logout'], [
+                                        'class' => 'ico-exit',
+                                        'data-method' => 'post'
+                                    ]); ?>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                </div>
+                </li>
+            <?php endif; ?>
+            <li id="smallCart">
+                <?= $this->render('//order/_small-cart'); ?>
             </li>
         </ul>
         <div class="mob__user-inf">

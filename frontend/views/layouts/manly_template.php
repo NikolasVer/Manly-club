@@ -122,6 +122,7 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
     </footer>
     <?php endif; ?>
 </div>
+<?php if ( Yii::$app->user->isGuest ): ?>
 <div class="popups">
     <div class="popup-01" id="popup-lodin">
         <div class="container">
@@ -134,13 +135,17 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
                 </div>
                 <div class="groups-data3">
                     <div id="group-10" class="active">
-                        <form action="">
+                        <?= Html::beginForm(['account/login'], 'POST');  ?>
                             <fieldset>
-                                <input type="email" class="about-us__form-input mail-input" placeholder="Email">
-                                <input type="password" class="about-us__form-input pass-input" placeholder="Пароль">
+                                <input type="email" name="email"
+                                       class="about-us__form-input mail-input" placeholder="Email">
+                                <input type="password"
+                                       name="password"
+                                       class="about-us__form-input pass-input" placeholder="Пароль">
                                 <div class="row remember-block">
                                     <div class="col-lg-7">
-                                        <input type="checkbox" id="remember" class="popup__radio-btn">
+                                        <input type="checkbox" name="rememberMe"
+                                               id="remember" class="popup__radio-btn">
                                         <label for="remember">Запомнить меня</label>
                                     </div>
                                     <div class="col-lg-5">
@@ -149,7 +154,7 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
                                 </div>
                                 <input type="submit" value="Войти" class="btn-05">
                             </fieldset>
-                        </form>
+                        <?= Html::endForm(); ?>
                     </div>
                     <div id="group-11">
                         <form action="">
@@ -165,7 +170,7 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
                                         <a href="" class="forget_pass">Мой Профиль</a>
                                     </div>
                                 </div>
-                                <input type="submit" value="Войти" class="btn-06">
+                                <input type="submit" value="Зарегестрироватся" class="btn-06">
                             </fieldset>
                         </form>
                     </div>
@@ -196,6 +201,7 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
         </div>
     </div>
 </div>
+<?php endif; ?>
 <?php $this->endBody() ?>
 <?= Html::endTag('body'); ?>
 </html>

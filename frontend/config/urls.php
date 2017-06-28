@@ -11,6 +11,7 @@ return [
         'blog/<slug:.*>' => 'blog/post',
         'shop' => 'shop/catalog',
         'shop/<productSlug:.*>/faq' => 'shop/faq',
-        'shop/<slug:.*>' => 'shop/product'
+        'shop/<slug:.*>' => 'shop/product',
+        'cart' => 'order/cart'
     ],
 ];

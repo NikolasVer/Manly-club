@@ -153,6 +153,7 @@ $(document).ready(function () {
         afterMove: function () {
             var o = $(this)[0];
             var c = o.$elem.next();
+            o.$elem.parent().find('.shop__card').attr('data-item', o.currentItem);
             c.find('.shop__ml span, .shop__price span').removeClass('active');
             c.find('[data-index="' + o.currentItem + '"]').addClass('active');
         },
@@ -333,7 +334,7 @@ $(document).ready(function () {
         $(".header__search-form .txt-s").toggle("slide");
     });
 
-    $('.header__nav-icons i.header__cart-icon').on("click", function () {
+    $('.header__nav-icons').on("click", 'i.header__cart-icon', function () {
         $(".header__box-add-cart").fadeToggle();
     });
 
@@ -426,8 +427,22 @@ $(document).ready(function () {
     });
 
     var filterContainer = $('.filtr-container');
-    if (filterContainer.length)
+    if (filterContainer.length) {
         filterContainer.filterizr();
+
+        filterContainer.on('click', '.shop__card', function() {
+            var name = $(this).attr('data-name');
+            var item = $(this).attr('data-item');
+            $.post('/cart', {
+                name: name,
+                item: item,
+                change: 1
+            }, function(html) {
+                $('#smallCart').html(html);
+            });
+        });
+
+    }
 
     $('.simplefilter li a').click(function () {
         $('.simplefilter li a').removeClass('active');

@@ -57,9 +57,9 @@ class ShopFaq extends \yii\db\ActiveRecord
         foreach ($headers as $i => $header) {
             $header = trim($header);
             $start = mb_strpos($this->content, $header, NULL, 'UTF-8');
-            $end = $i < $cnt - 2
+            $end = $cnt > $i + 1
                 ? mb_strpos($this->content, $headers[$i+1], NULL, 'UTF-8') : mb_strlen($this->content);
-            $end--;
+            //$end--;
             $res[] = [
                 preg_replace('/<h1.*>(.*)<\/h1>/', '$1', $header),
                 mb_substr($this->content, $start, $end - $start, 'UTF-8')

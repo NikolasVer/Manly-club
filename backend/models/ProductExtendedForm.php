@@ -200,12 +200,12 @@ class ProductExtendedForm extends Model
         $pModel->name = $this->productName;
         $pModel->short_name = $this->productShortName;
         $pModel->label = $this->productLabel;
-        $pModel->slug = $this->productSlug;
+        $pModel->slug = $this->productSlug ? : NULL;
         $pModel->shop_faq_id = $this->productFaqId;
         $pModel->status = $this->productStatus;
         $pModel->description_full = $this->productDescr;
         $pModel->description_cut = $this->productCatalogDescr;
-        $pModel->save(FALSE);
+        $pModel->save(TRUE);
         $this->productId = $pModel->id;
 
         $this->saveCategories($pModel);

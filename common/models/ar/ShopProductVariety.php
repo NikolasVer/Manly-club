@@ -58,6 +58,15 @@ class ShopProductVariety extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritdoc
+     * @return \common\queries\ShopProductVarietyQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new \common\queries\ShopProductVarietyQuery(get_called_class());
+    }
+
     public function getProduct()
     {
         return $this->hasOne(ShopProduct::className(), ['id' => 'shop_product_id']);
