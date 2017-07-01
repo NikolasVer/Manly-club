@@ -3046,13 +3046,26 @@ textarea.about-us__form-input {
 }
 
 .blog-post__comments-text {
-  float: left;
-  width: 64.7%;
+  &.lefted {
+    float: left;
+    width: 64.7%;
+  }
   padding: 55px 40px 55px 60px;
   .comment-list {
     li {
+      &>ul {
+        padding-left: 50px;
+        margin-bottom: 7px;
+      }
+    }
+    &>li {
       overflow: hidden;
       margin-bottom: 7px;
+
+      &>ul {
+        padding-left: 50px;
+        margin-bottom: 7px;
+      }
       .img {
         float: left;
         width: 66px;

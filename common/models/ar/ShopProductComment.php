@@ -2,7 +2,10 @@
 
 namespace common\models\ar;
 
+use common\models\User;
+use common\queries\ShopProductCommentQuery;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "shop_product_comment".
@@ -17,15 +20,28 @@ use Yii;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ *
+ * @property User $author
  */
 class ShopProductComment extends \yii\db\ActiveRecord
 {
+
+    const STATUS_ACTIVE = 10;
+    const STATUS_DELETED = 9;
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'shop_product_comment';
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
     }
 
     /**
@@ -40,7 +56,9 @@ class ShopProductComment extends \yii\db\ActiveRecord
             [['author_name', 'author_email'], 'string', 'max' => 255],
             [['author_name', 'author_email'], 'required', 'when' => function ( $m ) {/* @var static $m */
                 return $m->user_id == NULL;
-            }]
+            }],
+            [['status'], 'default', 'value' => static::STATUS_ACTIVE],
+            [['status'], 'in', 'range' => array_keys(static::statusLabels())]
         ];
     }
 
@@ -52,23 +70,52 @@ class ShopProductComment extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'parent_id' => 'Parent ID',
-            'shop_product_id' => 'Shop Product ID',
-            'user_id' => 'User ID',
-            'author_name' => 'Author Name',
-            'author_email' => 'Author Email',
-            'content' => 'Content',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'shop_product_id' => 'Товар',
+            'user_id' => 'Пользователь',
+            'author_name' => 'Имя автора',
+            'author_email' => 'Email автора',
+            'content' => 'Контент',
+            'status' => 'Статус',
+            'created_at' => 'Создан',
+            'updated_at' => 'Обновлен',
         ];
     }
 
     /**
      * @inheritdoc
-     * @return \common\queries\ShopProductCommentQuery the active query used by this AR class.
+     * @return ShopProductCommentQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \common\queries\ShopProductCommentQuery(get_called_class());
+        return new ShopProductCommentQuery(get_called_class());
     }
+
+    public static function statusLabels()
+    {
+        return [
+            static::STATUS_ACTIVE => 'Активен',
+            static::STATUS_DELETED => 'Удален'
+        ];
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public static function buildTree($comments, $parentId = NULL)
+    {
+        $results = [];
+
+        foreach ( $comments as $comment ) {
+            if ( $comment['parent_id'] != $parentId )
+                continue;
+            $results[] = [
+                'comment' => $comment,
+                'childs' => static::buildTree($comments, $comment['id'])
+            ];
+        }
+        return $results;
+    }
+
 }

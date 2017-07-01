@@ -1,9 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var \yii\web\View $this */
 /* @var \common\models\ar\ShopProduct $model */
+/* @var \common\models\ar\ShopProductComment $commentModel */
+/* @var array $comments */
 
 $this->params['bodyOptions'] = [
     'class' => 'body-color-grey-blog'
@@ -277,7 +280,7 @@ $this->params['bodyOptions'] = [
                     <div class="blog-post__comments">
                         <div class="blog-post__comments-text">
                             <div class="blog-post__ttl-mob text-center visible-sm">Комментарии:</div>
-                            <ul class="comment-list">
+                            <!--<ul class="comment-list">
                                 <li>
                                     <div class="img">
                                         <a href=""><img src="../images/img-17.jpg" alt=""></a>
@@ -326,39 +329,48 @@ $this->params['bodyOptions'] = [
                                         </ul>
                                     </div>
                                 </li>
+                            </ul>-->
+                            <ul class="comment-list">
+                                <?php foreach ($comments as $comment): ?>
+                                    <?= $this->render('_product_comment', ['comment' => $comment]) ?>
+                                <?php endforeach; ?>
                             </ul>
                             <div class="answer-form">
-                                <form action="">
+                                <?php $form = ActiveForm::begin([
+                                    'enableClientValidation' => FALSE
+                                ]); ?>
                                     <fieldset>
-                                        <textarea id="" cols="10" rows="10"></textarea>
+                                        <?= Html::activeHiddenInput($commentModel, 'parent_id',
+                                            ['id' => 'comment_parent']); ?>
+                                        <?php if ( Yii::$app->user->isGuest ): ?>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <?= $form->field($commentModel, 'author_name')
+                                                    ->textInput(['placeholder' => 'Ваше имя'])
+                                                    ->label(FALSE); ?>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <?= $form->field($commentModel, 'author_email')
+                                                    ->textInput(['placeholder' => 'Ваш Email'])
+                                                    ->label(FALSE); ?>
+                                            </div>
+                                        </div>
+                                        <?php endif; ?>
+                                        <?= $form->field($commentModel, 'content')
+                                            ->textarea(['rows' => 10, 'cols' => 10])->label(FALSE); ?>
                                         <div class="btn-box">
                                             <span class="btn-12">отмена</span>
                                             <input class="btn-11" type="submit" value="Ответить">
                                         </div>
                                     </fieldset>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="blog-post__comments-form">
-                            <div class="blog-post__form">
-                                <form action="">
-                                    <fieldset>
-                                        <div class="ttl text-center">Оставить отзыв</div>
-                                        <input class="about-us__form-input" placeholder="Имя" type="text">
-                                        <input class="about-us__form-input" placeholder="Email" type="email">
-                                        <textarea class="about-us__form-input" name="massage" rows="8" cols="40" placeholder="Сообщение"></textarea>
-                                        <div class="text-right">
-                                            <input class="btn-02" value="Отправить" type="submit">
-                                        </div>
-                                    </fieldset>
-                                </form>
+                                <?php ActiveForm::end(); ?>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="group-8">
                     <div class="blog-post__comments write-me">
-                        <div class="blog-post__comments-text">
+                        <div class="blog-post__comments-text lefted">
                             <div class="write-me__main-inf text-center">
                                 <div class="avatar"><span><img src="../images/img-34.png" alt=""></span></div>
                                 <div class="article-list__soc">

@@ -3,6 +3,7 @@
 namespace common\models\ar;
 
 use common\behaviors\SluggableBehavior;
+use common\queries\ShopProductCommentQuery;
 use Yii;
 
 /**
@@ -23,6 +24,7 @@ use Yii;
  * @property ShopCategory[] $categories
  * @property ShopProductVariety[] $varieties
  * @property ShopFaq $faq
+ * @property ShopProductComment[] $comments
  */
 class ShopProduct extends \yii\db\ActiveRecord
 {
@@ -127,6 +129,14 @@ class ShopProduct extends \yii\db\ActiveRecord
     public function getFaq()
     {
         return $this->hasOne(ShopFaq::className(), ['id' => 'shop_faq_id']);
+    }
+
+    /***
+     * @return ShopProductCommentQuery
+     */
+    public function getComments()
+    {
+        return $this->hasMany(ShopProductComment::className(), ['shop_product_id' => 'id']);
     }
 
 }

@@ -18,7 +18,7 @@ use yii\helpers\Html;
             <li><?= Html::a('Блог', ['blog/list']); ?></li>
             <li><?= Html::a('О нас', '#'); ?></li>
             <li><?= Html::a('Помощь', '#'); ?></li>
-            <li><?= Html::a('Партнеры', '#'); ?></li>
+            <li><?= Html::a('Партнеры', ['site/partners']); ?></li>
         </ul>
         <ul class="header__nav-icons position-nav position-nav">
             <li class="hidden-sm">

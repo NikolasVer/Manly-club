@@ -221,4 +221,9 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionPartners()
+    {
+        return $this->render('partners');
+    }
 }

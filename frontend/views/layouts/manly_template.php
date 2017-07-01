@@ -34,7 +34,7 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
             <li><?= Html::a('Блог', ['blog/list']); ?></li>
             <li><?= Html::a('О нас', '#'); ?></li>
             <li><?= Html::a('Помощь', '#'); ?></li>
-            <li><?= Html::a('Партнеры', '#'); ?></li>
+            <li><?= Html::a('Партнеры', ['site/partners']); ?></li>
         </ul>
     </nav>
     <header class="header">

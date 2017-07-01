@@ -12,7 +12,11 @@ return [
     'bootstrap' => ['log', 'cart'],
     'controllerNamespace' => 'frontend\controllers',
     'layout' => 'manly_template',
+    'language' => 'ru-RU',
     'components' => [
+        'formatter' => [
+            'locale' => 'ru_RU.utf8'
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

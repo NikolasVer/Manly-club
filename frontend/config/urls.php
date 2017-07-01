@@ -7,6 +7,7 @@ return [
     'scriptUrl' => 'http://manly.inimini.ru',
     'baseUrl' => 'http://manly.inimini.ru',
     'rules' => [
+        'partners' => 'site/partners',
         'blog' => 'blog/list',
         'blog/<slug:.*>' => 'blog/post',
         'shop' => 'shop/catalog',

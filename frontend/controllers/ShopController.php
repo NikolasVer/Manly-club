@@ -5,9 +5,10 @@ namespace frontend\controllers;
 
 use common\models\ar\ShopCategory;
 use common\models\ar\ShopProduct;
+use common\models\ar\ShopProductComment;
+use common\queries\ShopProductCommentQuery;
 use common\queries\ShopProductVarietyAttachmentQuery;
 use common\queries\ShopProductVarietyQuery;
-use yii\db\ActiveQuery;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -36,13 +37,35 @@ class ShopController extends Controller
     public function actionProduct($slug)
     {
 
-        $model = ShopProduct::find()->slug($slug)->active()->one();
+        $model = ShopProduct::find()
+            ->slug($slug)
+            ->active()->one();
 
         if ( !$model )
             throw new NotFoundHttpException();
 
+        $commentModel = new ShopProductComment();
+
+        if ( $commentModel->load(\Yii::$app->request->post()) ) {
+            $commentModel->shop_product_id = $model->id;
+            if ( !\Yii::$app->user->isGuest )
+                $commentModel->user_id = \Yii::$app->user->id;
+            if ( $commentModel->save() )
+                return $this->redirect(\Yii::$app->request->url);
+        }
+
+        $comments = ShopProductComment::buildTree($model->getComments()
+            ->with('author')
+            ->active()
+            ->dateSort()
+            ->asArray()
+            ->all());
+
+
         return $this->render('product', [
-            'model' => $model
+            'model' => $model,
+            'commentModel' => $commentModel,
+            'comments' => $comments
         ]);
 
     }
