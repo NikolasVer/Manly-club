@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "zxbodya/yii2-tinymce": "*@dev",
         "zxbodya/yii2-elfinder": "*@dev",
-        "kartik-v/yii2-widget-datetimepicker": "*"
+        "kartik-v/yii2-widget-datetimepicker": "*",
+        "mongosoft/yii2-upload-behavior": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

@@ -8,3 +8,4 @@ Yii::setAlias('@uploads/storage', dirname(dirname(__DIR__)) . '/frontend/web/upl
 Yii::setAlias('@uploads/posts', dirname(dirname(__DIR__)) . '/frontend/web/uploads/posts');
 Yii::setAlias('@uploads/categories', dirname(dirname(__DIR__)) . '/frontend/web/uploads/categories');
 Yii::setAlias('@uploads/varieties', dirname(dirname(__DIR__)) . '/frontend/web/uploads/varieties');
+Yii::setAlias('@uploads/partners', dirname(dirname(__DIR__)) . '/frontend/web/uploads/partners');

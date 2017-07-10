@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\ar\Country;
+use common\models\ar\Partner;
 use common\models\ar\ShopCategory;
 use Yii;
 use yii\base\InvalidParamException;
@@ -13,6 +15,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -222,8 +225,27 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionPartnersXml()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $partners = Partner::find()->priority()->asArray()->all();
+
+        return $partners;
+    }
+
     public function actionPartners()
     {
-        return $this->render('partners');
+        $partners = Partner::find()->priority()->asArray()->all();
+
+        $places = Country::find()->where(['IS NOT', 'gmap', NULL])
+            ->with(['cities' => function ( $q ) {
+                $q->andWhere(['IS NOT', 'gmap', NULL]);
+            }])->asArray()->all();
+
+        return $this->render('partners', [
+            'partners' => $partners,
+            'places' => $places
+        ]);
     }
 }

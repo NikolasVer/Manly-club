@@ -44,7 +44,10 @@ AppAsset::register($this);
                 ['label' => 'Товары', 'url' => ['shop-product/index']],
                 ['label' => 'FAQ', 'url' => ['shop-faq/index']]
             ]
-        ]
+        ],
+        ['label' => 'Страны', 'url' => ['country/index']],
+        ['label' => 'Города', 'url' => ['city/index']],
+        ['label' => 'Партнеры', 'url' => ['partner/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

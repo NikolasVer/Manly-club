@@ -3,67 +3,23 @@
 use frontend\assets\PartnersAsset;
 
 /* @var \yii\web\View $this */
+/* @var array $partners */
+/* @var array $places */
 
 PartnersAsset::register($this);
 
 ?>
 
+<div style="display: none;" id="partners_json"><?= json_encode($partners); ?></div>
+<div style="display: none;" id="places_json"><?= json_encode($places); ?></div>
 <div class="partners-page">
     <div class="partners-page__map">
         <div class="partners-page__select-wrap text-center">
             <div class="container">
-                <select class="basic">
-                    <option value="">Украина</option>
-                    <option>Украина</option>
-                    <option>Россия</option>
-                    <option>Беларусь</option>
-                    <option>Казахстан</option>
-                    <option>Армения</option>
-                    <option>Польша</option>
+                <select id="select_country" class="basic">
                 </select>
                 <div class="long-list">
-                    <select class="basic">
-                        <option value="">Харьков</option>
-                        <option>Харьков</option>
-                        <option>Днепропетровск</option>
-                        <option>Кривой Рог</option>
-                        <option>Донецк</option>
-                        <option>Краматорск</option>
-                        <option>Макеевка</option>
-                        <option>Мариуполь</option>
-                        <option>Запорожье и область</option>
-                        <option>Луганск и область</option>
-                        <option>Харьков и область</option>
-                        <option>Ивано-Франковск и область</option>
-                        <option>Луцк и Волынская область</option>
-                        <option>Львов и область</option>
-                        <option>Харьков</option>
-                        <option>Днепропетровск</option>
-                        <option>Кривой Рог</option>
-                        <option>Донецк</option>
-                        <option>Краматорск</option>
-                        <option>Макеевка</option>
-                        <option>Мариуполь</option>
-                        <option>Запорожье и область</option>
-                        <option>Луганск и область</option>
-                        <option>Харьков и область</option>
-                        <option>Ивано-Франковск и область</option>
-                        <option>Луцк и Волынская область</option>
-                        <option>Львов и область</option>
-                        <option>Харьков</option>
-                        <option>Днепропетровск</option>
-                        <option>Кривой Рог</option>
-                        <option>Донецк</option>
-                        <option>Краматорск</option>
-                        <option>Макеевка</option>
-                        <option>Мариуполь</option>
-                        <option>Запорожье и область</option>
-                        <option>Луганск и область</option>
-                        <option>Харьков и область</option>
-                        <option>Ивано-Франковск и область</option>
-                        <option>Луцк и Волынская область</option>
-                        <option>Львов и область</option>
-                    </select>
+                    <select id="select_city" class="basic"></select>
                 </div>
             </div>
         </div>
@@ -71,36 +27,11 @@ PartnersAsset::register($this);
         <div class="partners-page__slider-wrap">
             <div class="container">
                 <div id="partners-slider" class="partners-page__slider">
-                    <div class="item">
-                        <img src="images/img-19.png" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="images/img-20.png" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="images/img-21.png" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="images/img-22.png" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="images/img-23.png" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="images/img-19.png" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="images/img-20.png" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="images/img-21.png" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="images/img-22.png" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="images/img-23.png" alt="">
-                    </div>
+                    <?php foreach ($partners as $partner): ?>
+                        <div class="item" data-map-pos="<?= $partner['gmap']; ?>" >
+                            <img src="/uploads/partners/<?= $partner['img']; ?>" alt="">
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
