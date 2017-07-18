@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\ar\Country;
+use common\models\ar\Feedback;
 use common\models\ar\Partner;
 use common\models\ar\ShopCategory;
 use Yii;
@@ -48,6 +49,7 @@ class SiteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'feedback' => ['post'],
                 ],
             ],
         ];
@@ -247,5 +249,13 @@ class SiteController extends Controller
             'partners' => $partners,
             'places' => $places
         ]);
+    }
+
+    public function actionFeedback()
+    {
+        $model = new Feedback();
+        if ( $model->load(Yii::$app->request->post()) )
+            $model->save();
+        return $this->goBack(['site/index']);
     }
 }

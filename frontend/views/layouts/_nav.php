@@ -39,7 +39,8 @@ use yii\helpers\Html;
                     <span class="avatar hidden-sm"><img src="images/img-36.png" alt=""></span>
                     <div class="header__user-settings">
                         <div class="user-name">
-                            <a class="ico-avatar" href=""><?= Yii::$app->user->identity->username ?></a>
+                            <a class="ico-avatar" href=""><?= Yii::$app->user
+                                    ->identity->displayName; ?></a>
                         </div>
                         <ul>
                             <li><div class="user-settings"><a class="ico-settings" href="">Настройки</a></div></li>

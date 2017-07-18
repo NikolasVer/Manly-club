@@ -157,13 +157,15 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
                         <?= Html::endForm(); ?>
                     </div>
                     <div id="group-11">
-                        <form action="">
+                        <?= Html::beginForm(['account/register'], 'POST');  ?>
                             <fieldset>
-                                <input type="email" class="about-us__form-input mail-input" placeholder="Email">
-                                <input type="password" class="about-us__form-input pass-input" placeholder="Пароль">
+                                <input type="email" name="email" class="about-us__form-input mail-input" placeholder="Email">
+                                <input type="password" name="password" class="about-us__form-input pass-input" placeholder="Пароль">
                                 <div class="row remember-block">
                                     <div class="col-lg-7">
-                                        <input type="checkbox" id="remember" class="popup__radio-btn">
+                                        <input type="checkbox" checked name="rememberMe"
+                                               value="1"
+                                               id="remember" class="popup__radio-btn">
                                         <label for="remember">Запомнить меня</label>
                                     </div>
                                     <div class="col-lg-5">
@@ -172,7 +174,7 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
                                 </div>
                                 <input type="submit" value="Зарегестрироватся" class="btn-06">
                             </fieldset>
-                        </form>
+                        <?= Html::endForm(); ?>
                     </div>
                 </div>
             </div>

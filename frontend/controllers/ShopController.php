@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 
+use common\models\ar\Feedback;
 use common\models\ar\ShopCategory;
 use common\models\ar\ShopProduct;
 use common\models\ar\ShopProductComment;
@@ -61,11 +62,14 @@ class ShopController extends Controller
             ->asArray()
             ->all());
 
+        $feedbackModel = new Feedback(['shop_product_id' => $model->id]);
+
 
         return $this->render('product', [
             'model' => $model,
             'commentModel' => $commentModel,
-            'comments' => $comments
+            'comments' => $comments,
+            'feedbackModel' => $feedbackModel
         ]);
 
     }

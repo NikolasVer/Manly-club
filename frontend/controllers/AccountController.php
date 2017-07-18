@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 
 use frontend\models\LoginForm;
+use frontend\models\RegisterForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -17,10 +18,10 @@ class AccountController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'register'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['register'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -36,6 +37,7 @@ class AccountController extends Controller
                 'actions' => [
                     'logout' => ['post'],
                     'login' => ['post'],
+                    'register' => ['post'],
                 ],
             ],
         ];
@@ -54,6 +56,23 @@ class AccountController extends Controller
         } else {
 
         }
+        return $this->goBack();
+    }
+
+    public function actionRegister()
+    {
+        if ( !Yii::$app->user->isGuest )
+            return $this->goHome();
+
+        $model = new RegisterForm();
+
+        if ( $model->load(Yii::$app->request->post(), '') && $model->register() ) {
+
+        } else {
+            var_dump($model->errors);
+            exit;
+        }
+
         return $this->goBack();
     }
 

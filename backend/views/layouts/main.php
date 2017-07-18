@@ -36,7 +36,14 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/site/index']],
-        ['label' => 'Блог', 'url' => ['post/index']],
+        ['label' => 'Feedback', 'url' => ['feedback/index']],
+        [
+            'label' => 'Блог',
+            'items' => [
+                ['label' => 'Посты', 'url' => ['post/index']],
+                ['label' => 'Комментарии', 'url' => ['post-comment/index']],
+            ]
+        ],
         [
             'label' => 'Магазин',
             'items' => [

@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var \common\models\ar\ShopProduct $model */
 /* @var \common\models\ar\ShopProductComment $commentModel */
 /* @var array $comments */
+/* @var \common\models\ar\Feedback $feedbackModel */
 
 $this->params['bodyOptions'] = [
     'class' => 'body-color-grey-blog'
@@ -392,17 +393,28 @@ $this->params['bodyOptions'] = [
                             </div>
                         </div>
                         <div class="blog-post__comments-form">
-                            <form action="">
-                                <fieldset>
-                                    <div class="ttl text-center">Написать мне</div>
-                                    <input class="about-us__form-input" placeholder="Имя" type="text">
-                                    <input class="about-us__form-input" placeholder="Email" type="email">
-                                    <textarea class="about-us__form-input" name="massage" rows="8" cols="40" placeholder="Сообщение"></textarea>
-                                    <div class="text-right">
-                                        <input class="btn-02" value="Отправить" type="submit">
-                                    </div>
-                                </fieldset>
-                            </form>
+                            <?php $form = ActiveForm::begin([
+                                'enableClientValidation' => FALSE,
+                                'action' => ['site/feedback']
+                            ]); ?>
+                            <fieldset>
+                                <?= Html::activeHiddenInput($feedbackModel, 'shop_product_id'); ?>
+                                <div class="ttl text-center">Написать мне</div>
+                                <?= $form->field($feedbackModel, 'author_name')
+                                    ->textInput(['placeholder' => 'Имя', 'class' => 'about-us__form-input'])
+                                    ->label(FALSE); ?>
+                                <?= $form->field($feedbackModel, 'author_email')
+                                    ->textInput(['placeholder' => 'Email', 'class' => 'about-us__form-input'])
+                                    ->label(FALSE); ?>
+                                <?= $form->field($feedbackModel, 'content')
+                                    ->textarea(['rows' => 8, 'cols' => 40,
+                                        'placeholder' => 'Сообщение', 'class' => 'about-us__form-input'])
+                                    ->label(FALSE); ?>
+                                <div class="text-right">
+                                    <input class="btn-02" value="Отправить" type="submit">
+                                </div>
+                            </fieldset>
+                            <?php ActiveForm::end(); ?>
                         </div>
                     </div>
                 </div>

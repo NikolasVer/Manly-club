@@ -1,7 +1,12 @@
 <?php
 
 /* @var \yii\web\View $this */
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
 /* @var \common\models\ar\Post $post */
+/* @var \common\models\ar\PostComment $commentModel */
+/* @var array $comments */
 
 ?>
 <section class="blog-post">
@@ -14,11 +19,11 @@
                     <div class="blog-post__icon-inf">
                         <ul>
                             <li><i class="ico-day"></i>2 дня назад</li>
-                            <li><i class="ico-views"></i>132</li>
-                            <li><i class="ico-comm"></i>24</li>
+                            <li><i class="ico-views"></i><?= $post->views; ?></li>
+                            <li><i class="ico-comm"></i><?= count($comments); ?></li>
                         </ul>
                     </div>
-                    <h1 class="blog-post__main-title">Гайд для прекрасной половины человечества<br> или как правильно ухаживать за бородой своего мужика</h1>
+                    <h1 class="blog-post__main-title"><?= $post->title; ?></h1>
                 </div>
                 <div class="article-list__soc">
                     <ul>
@@ -107,65 +112,39 @@
             <div class="blog-post__comments-text">
                 <div class="blog-post__ttl-mob text-center visible-sm">Комментарии:</div>
                 <ul class="comment-list">
-                    <li>
-                        <div class="img">
-                            <a href=""><img src="images/img-17.jpg" alt=""></a>
-                        </div>
-                        <div class="txt">
-                            <div class="top-txt">
-                                <a class="name" href="">User Name</a>
-                                <span class="time-status">Неделю назад</span>
-                            </div>
-                            <p>This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus
-                                a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit.</p>
-                            <ul class="icon-list">
-                                <li><a href=""><i class="ico-answer active"></i></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="answer-comment">
-                        <div class="img">
-                            <a href=""><img src="images/img-17.jpg" alt=""></a>
-                        </div>
-                        <div class="txt">
-                            <div class="top-txt">
-                                <a class="name" href="">User Name</a>
-                                <span class="time-status">Неделю назад</span>
-                            </div>
-                            <p>This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean</p>
-                            <ul class="icon-list">
-                                <li><a href=""><i class="ico-answer"></i></a></li>
-                                <li><a href=""><i class="ico-edit"></i></a></li>
-                                <li><a href=""><i class="ico-delete"></i></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="img">
-                            <a href=""><img src="images/img-17.jpg" alt=""></a>
-                        </div>
-                        <div class="txt">
-                            <div class="top-txt">
-                                <a class="name" href="">User Name</a>
-                                <span class="time-status">Неделю назад</span>
-                            </div>
-                            <p>This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate </p>
-                            <ul class="icon-list">
-                                <li><a href=""><i class="ico-answer"></i></a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    <?php foreach ($comments as $comment): ?>
+                        <?= $this->render('_post_comment', ['comment' => $comment]) ?>
+                    <?php endforeach; ?>
                 </ul>
                 <div class="answer-form">
-                    <form action="">
-                        <fieldset>
-                            <textarea id="" cols="10" rows="10"></textarea>
-                            <div class="btn-box">
-                                <span class="btn-12">отмена</span>
-                                <input class="btn-11" value="Ответить" type="submit">
+                    <?php $form = ActiveForm::begin([
+                        'enableClientValidation' => FALSE
+                    ]); ?>
+                    <fieldset>
+                        <?= Html::activeHiddenInput($commentModel, 'parent_id',
+                            ['id' => 'comment_parent']); ?>
+                        <?php if ( Yii::$app->user->isGuest ): ?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $form->field($commentModel, 'author_name')
+                                        ->textInput(['placeholder' => 'Ваше имя'])
+                                        ->label(FALSE); ?>
+                                </div>
+                                <div class="col-md-6">
+                                    <?= $form->field($commentModel, 'author_email')
+                                        ->textInput(['placeholder' => 'Ваш Email'])
+                                        ->label(FALSE); ?>
+                                </div>
                             </div>
-                        </fieldset>
-                    </form>
+                        <?php endif; ?>
+                        <?= $form->field($commentModel, 'content')
+                            ->textarea(['rows' => 10, 'cols' => 10])->label(FALSE); ?>
+                        <div class="btn-box">
+                            <span class="btn-12">отмена</span>
+                            <input class="btn-11" type="submit" value="Ответить">
+                        </div>
+                    </fieldset>
+                    <?php ActiveForm::end(); ?>
                 </div>
             </div>
             <div class="blog-post__comments-form">

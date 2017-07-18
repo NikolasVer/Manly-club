@@ -43,9 +43,11 @@ $this->params['bodyOptions'] = [
                          ArrayHelper::getColumn($product->categoryProductAssns,
                              'shop_category_id')); ?>">
                     <div class="shop__item">
-                        <div class="shop__iocns">
+                        <div class="shop__iocns shop__iocns-left">
                             <span class="shop__card" data-name="<?= $product->slug; ?>"
                                   data-item="0"></span>
+                        </div>
+                        <div class="shop__iocns">
                             <span class="shop__info"></span>
                         </div>
                         <div class="text-center">

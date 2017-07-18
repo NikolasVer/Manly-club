@@ -3,7 +3,11 @@
 namespace frontend\components;
 
 
+use common\models\ar\ShopOrder;
+use common\models\ar\ShopOrderVarietyAssn;
 use yii\base\Component;
+use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 use yii\web\Application;
 use yii\web\Cookie;
 
@@ -68,10 +72,30 @@ class Cart extends Component
 
     public function load()
     {
+        $cookieVal = \Yii::$app->request->cookies->getValue($this->cookieName, NULL);
+        $cookieVal = $cookieVal === NULL ? [] : json_decode($cookieVal, TRUE);
+
         if ( \Yii::$app->user->isGuest ) {
-            $val = \Yii::$app->request->cookies->getValue($this->cookieName, NULL);
-            $this->_items = $val === NULL ? [] : json_decode($val, TRUE);
+            $this->_items = $cookieVal;
+            return;
         }
+
+        $order = ShopOrder::find()->current()->own()
+            ->select(['id'])->asArray()->one();
+        if ( $order ) {
+            $this->_items = ArrayHelper::map(ShopOrderVarietyAssn::find()
+                ->where(['shop_order_id' => $order['id']])
+                ->select(['shop_product_variety_id', 'amount'])
+                ->asArray()->all(), 'shop_product_variety_id', 'amount');
+        }
+
+        if ( $cookieVal ) {
+            \Yii::$app->response->cookies->remove($this->cookieName);
+            foreach ($cookieVal as $id => $amount) {
+                $this->_items[$id] = $amount;
+            }
+        }
+
     }
 
     public function save()
@@ -81,7 +105,28 @@ class Cart extends Component
                 'name' => $this->cookieName,
                 'value' => json_encode($this->_items)
             ]));
+            return;
         }
+
+        if ( !count($this->_items) )
+            return;
+
+        $order = ShopOrder::find()->current()
+            ->own()
+            ->select(['id'])->asArray()->one();
+        if ( !$order ) {
+            $order = new ShopOrder(['user_id' => \Yii::$app->user->id]);
+            $order->save();
+        }
+
+        ShopOrderVarietyAssn::deleteAll(['shop_order_id' => $order['id']]);
+        $insert = [];
+        foreach ($this->_items as $id => $amount) {
+            $insert[] = [$order['id'], $id, $amount];
+        }
+        \Yii::$app->db->createCommand()->batchInsert(ShopOrderVarietyAssn::tableName(),
+            ['shop_order_id', 'shop_product_variety_id', 'amount'], $insert)->execute();
+
     }
 
 }

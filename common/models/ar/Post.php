@@ -21,6 +21,7 @@ use common\behaviors\SluggableBehavior;
  * @property integer $publish_at
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $views
  *
  * @property string $statusLabel
  * @property string $displayTypeLabel
@@ -70,13 +71,14 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             [['excerpt', 'content'], 'string'],
-            [['display_type', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['display_type', 'status', 'created_at', 'updated_at', 'views'], 'integer'],
             [['title', 'image', 'image_preview', 'slug'], 'string', 'max' => 255],
             [['slug'], 'unique'],
             [['display_type'], 'in', 'range' => array_keys(static::displayTypeLabels())],
             [['status'], 'in', 'range' => array_keys(static::statusLabels())],
             [['publish_at'], 'date', 'format' => Yii::$app->formatter->datetimeFormat,
-                'timestampAttribute' => 'publish_at']
+                'timestampAttribute' => 'publish_at'],
+            [['views'], 'default', 'value' => 0]
         ];
     }
 
@@ -98,6 +100,7 @@ class Post extends \yii\db\ActiveRecord
             'publish_at' => 'Дата публикации',
             'created_at' => 'Создан',
             'updated_at' => 'Обновлен',
+            'views' => 'Просмотры'
         ];
     }
 
@@ -135,6 +138,11 @@ class Post extends \yii\db\ActiveRecord
     public function getStatusLabel()
     {
         return static::statusLabels()[$this->status];
+    }
+
+    public function getComments()
+    {
+        return $this->hasMany(PostComment::className(), ['post_id' => 'id']);
     }
 
 }
