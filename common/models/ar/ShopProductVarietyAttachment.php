@@ -115,4 +115,9 @@ class ShopProductVarietyAttachment extends \yii\db\ActiveRecord
 
         return TRUE;
     }
+
+    public static function url($local, $remote)
+    {
+        return $local ? : $remote;
+    }
 }

@@ -41,6 +41,6 @@ if ( $cnt ) {
         <?php endif; ?>
     </div>
     <?php if ( $cnt ): ?>
-    <a href="" class="btn-09">оформит заказ</a>
+        <?= Html::a('оформит заказ', ['order/cart'], ['class' => 'btn-09']) ?>
     <?php endif; ?>
 </div>

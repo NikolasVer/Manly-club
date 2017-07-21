@@ -437,7 +437,7 @@ $(document).ready(function () {
         filterContainer.on('click', '.shop__card', function() {
             var name = $(this).attr('data-name');
             var item = $(this).attr('data-item');
-            $.post('/cart', {
+            $.post('/cart-item', {
                 name: name,
                 item: item,
                 change: 1

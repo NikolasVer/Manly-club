@@ -13,6 +13,8 @@ return [
         'shop' => 'shop/catalog',
         'shop/<productSlug:.*>/faq' => 'shop/faq',
         'shop/<slug:.*>' => 'shop/product',
-        'cart' => 'order/cart'
+        'cart-item' => 'order/cart-item',
+        'cart/contacts' => 'order/create',
+        'cart' => 'order/cart',
     ],
 ];

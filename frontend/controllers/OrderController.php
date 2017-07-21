@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\ar\ShopOrder;
 use common\models\ar\ShopProduct;
 use common\models\ar\ShopProductVariety;
 use common\queries\ShopProductQuery;
@@ -10,7 +11,7 @@ use yii\web\Controller;
 class OrderController extends Controller
 {
 
-    public function actionCart()
+    public function actionCartItem()
     {
         $name = \Yii::$app->request->post('name', FALSE);
         $item = \Yii::$app->request->post('item', FALSE);
@@ -38,5 +39,28 @@ class OrderController extends Controller
         return $this->renderPartial('_small-cart');
 
     }
+
+    public function actionCart()
+    {
+        $items = \Yii::$app->cart->items;
+        $products = ShopProductVariety::find()
+            ->where(['id' => array_keys($items)])
+            ->with(['product', 'attachments'])
+            ->asArray()
+            ->all();
+        return $this->render('cart', [
+            'itemsCount' => $items,
+            'products' => $products
+        ]);
+    }
+
+    public function actionCreate()
+    {
+        $model = \Yii::$app->user->isGuest ? new ShopOrder()
+            : ShopOrder::find()->current()->own()->one();
+        $model->scenario = $model::SCENARIO_CHECKOUT;
+        return $this->render('create', ['model' => $model]);
+    }
+
 
 }

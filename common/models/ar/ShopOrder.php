@@ -30,6 +30,8 @@ use yii\behaviors\TimestampBehavior;
 class ShopOrder extends \yii\db\ActiveRecord
 {
 
+    const SCENARIO_CHECKOUT = 'checkout';
+
     const STATUS_CURRENT = 10;
     const STATUS_DELETED = 0;
 
@@ -48,6 +50,16 @@ class ShopOrder extends \yii\db\ActiveRecord
         ];
     }
 
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[static::SCENARIO_CHECKOUT] = [
+            'firstname', 'lastname', 'email', 'phone', 'city', 'np_number', 'street',
+            'house_number', 'apartment_number', 'comment'
+        ];
+        return $scenarios;
+    }
+
     /**
      * @inheritdoc
      */
@@ -59,7 +71,9 @@ class ShopOrder extends \yii\db\ActiveRecord
             [['firstname', 'lastname', 'email', 'phone', 'city', 'street', 'house_number',
                 'apartment_number', 'np_number'], 'string', 'max' => 255],
             [['comment'], 'string', 'max' => 400],
-            ['status', 'default', 'value' => static::STATUS_CURRENT]
+            ['status', 'default', 'value' => static::STATUS_CURRENT],
+            [['firstname', 'lastname', 'email', 'phone', 'city', 'np_number', 'street',
+                'house_number', 'apartment_number'], 'required', 'on' => static::SCENARIO_CHECKOUT]
         ];
     }
 
@@ -71,17 +85,17 @@ class ShopOrder extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'firstname' => 'Firstname',
-            'lastname' => 'Lastname',
+            'firstname' => 'Имя',
+            'lastname' => 'Фамилия',
             'email' => 'Email',
-            'phone' => 'Phone',
-            'city' => 'City',
-            'street' => 'Street',
-            'house_number' => 'House Number',
-            'apartment_number' => 'Apartment Number',
-            'np_number' => 'Np Number',
-            'comment' => 'Comment',
-            'cost_amount' => 'Cost Amount',
+            'phone' => 'Телефон',
+            'city' => 'Город',
+            'street' => 'Улица',
+            'house_number' => 'Дом / Корпус',
+            'apartment_number' => 'Квартира',
+            'np_number' => 'Отделения Новой Почты',
+            'comment' => 'Комментарий',
+            'cost_amount' => 'Стоимость заказа',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
