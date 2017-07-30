@@ -186,6 +186,42 @@ body {
       padding-bottom: 0;
     }
   }
+
+  &.body-loading {
+    height: 100%;
+    overflow: hidden;
+    &:before {
+      content: '';
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      background: #131313 url('../images/logo__header__bigl.png') no-repeat center;
+      background-size: auto 200px;
+    }
+    &:after {
+      content: '';
+      position: fixed;
+      top: ~"calc(50% + 150px)";
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      border-radius: 2px;
+      background-color: #66644b;
+      z-index: 3;
+      animation-name: loader;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+    }
+  }
+}
+
+@keyframes loader {
+  from {width: 0;}
+  to {width: 80%}
 }
 
 .text-left {

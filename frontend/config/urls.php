@@ -16,5 +16,6 @@ return [
         'cart-item' => 'order/cart-item',
         'cart/contacts' => 'order/create',
         'cart' => 'order/cart',
+        'about' => 'site/about',
     ],
 ];

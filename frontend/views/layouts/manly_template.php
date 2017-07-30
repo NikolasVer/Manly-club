@@ -13,6 +13,8 @@ $bodyOptions = ArrayHelper::getValue($this->params, 'bodyOptions', []);
 $showVideoHead = ArrayHelper::getValue($this->params, 'showVideoHead', FALSE);
 $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
 
+$bodyOptions['class'] = ArrayHelper::getValue($bodyOptions, 'class', '') . ' body-loading';
+
 ?>
 
 <?php $this->beginPage() ?>
@@ -23,6 +25,63 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <style type="text/css">
+        body.body-loaded:after {
+            display: none;
+        }
+        body.body-loaded:before {
+            opacity: 0;
+        }
+        body.body-loading {
+            height: 100%;
+            overflow: hidden
+        }
+        body.body-loading>*{
+            opacity: 0;
+        }
+        body.body-loaded>*{
+            opacity: inherit;
+        }
+
+        body.body-loading:before {
+            content: "";
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            background: #131313 url(<?= require("_logo_base64.php"); ?>) no-repeat 50%;
+            background-size: auto 200px;
+            transition: opacity .5s;
+        }
+
+        body.body-loading:after {
+            content: "";
+            position: fixed;
+            top: calc(50% + 150px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            border-radius: 2px;
+            background-color: #66644b;
+            z-index: 3;
+            animation-name: a;
+            animation-duration: 4s;
+            animation-iteration-count: infinite
+        }
+
+        @keyframes a {
+            0% {
+                width: 0
+            }
+
+            to {
+                width: 80%
+            }
+        }
+    </style>
     <?php $this->head() ?>
 </head>
 <?= Html::beginTag('body', $bodyOptions) ?>
@@ -32,7 +91,7 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
         <ul class="header__nav-items">
             <li><?= Html::a('Магазин', ['shop/catalog']); ?></li>
             <li><?= Html::a('Блог', ['blog/list']); ?></li>
-            <li><?= Html::a('О нас', '#'); ?></li>
+            <li><?= Html::a('О нас', ['site/about']); ?></li>
             <li><?= Html::a('Помощь', '#'); ?></li>
             <li><?= Html::a('Партнеры', ['site/partners']); ?></li>
         </ul>
@@ -40,11 +99,13 @@ $showFooter = ArrayHelper::getValue($this->params, 'showFooter', TRUE);
     <header class="header">
         <?php if ( $showVideoHead ): ?>
         <section class="header__bg">
-            <div class="header__video_bg rellax" data-rellax-speed="-5"></div>
+            <div class="header__video_bg rellax" data-rellax-speed="-30"></div>
             <div class="header__big-logo"></div>
             <div class="container">
                 <div class="header__top">
-                    <strong role="banner" class="header__logo-top"><a href="/">MANLY CLUB est.2014</a></strong>
+                    <strong role="banner" class="header__logo-top">
+                        <a href="/">MANLY CLUB est.2014</a>
+                    </strong>
                 </div>
             </div>
             <span class="header__ico-slide-ancor"><i class="header__ico-slide"></i></span>

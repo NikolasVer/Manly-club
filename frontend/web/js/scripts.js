@@ -1,4 +1,12 @@
 $(document).ready(function () {
+
+    $(window).load(function() {
+        $('body').addClass('body-loaded');
+        setTimeout(function() {
+            $('body').removeClass('body-loading').removeClass('body-loaded');
+        }, 500);
+    });
+
     jQuery.fn.exists = function () {
         return this.length > 0;
     };
@@ -15,7 +23,7 @@ $(document).ready(function () {
         webm: 'videobg/header_bg.webm',
         poster: 'videobg/header_bg.jpg',
         opacity: 1,
-        fullscreen: true,
+        //fullscreen: true,
     });
 
     if ($('.rellax').exists()) {
@@ -378,10 +386,10 @@ $(document).ready(function () {
 
     $(window).scroll(function () {
         var how_much = $(window).scrollTop(),
-            top_height = $('.header__bg').height() - 355,
+            top_height = $('.header__bg').height() - (265 + $('.header__nav').height()),
             //top_height_logo = $('.header__bg').height() - 655,
             top_height_login = $('.header__bg').height() - 15;
-        icon_mob_menu = $('.header__bg').height();
+        var icon_mob_menu = $('.header__bg').height();
         how_much > top_height ? $('.header__nav').addClass('sticked-fix')
             : $('.header__nav').removeClass('sticked-fix');
         how_much > top_height_login ? $('nav .login').addClass('sticked-fix')
@@ -391,6 +399,7 @@ $(document).ready(function () {
         /*how_much > top_height_logo ? $('.header__big-logo').addClass('sticked-fix')
             : $('.header__big-logo').removeClass('sticked-fix');*/
 
+        //
         var logo = $('.header__big-logo');
         if( how_much > ($(window).height() -  (logo.height() + parseInt(logo.css('top')))) )
             logo.addClass('sticked-fix');

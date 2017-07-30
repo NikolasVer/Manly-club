@@ -16,7 +16,7 @@ use yii\helpers\Html;
         <ul class="header__nav-items position-nav hidden-sm">
             <li><?= Html::a('Магазин', ['shop/catalog']); ?></li>
             <li><?= Html::a('Блог', ['blog/list']); ?></li>
-            <li><?= Html::a('О нас', '#'); ?></li>
+            <li><?= Html::a('О нас', ['site/about']); ?></li>
             <li><?= Html::a('Помощь', '#'); ?></li>
             <li><?= Html::a('Партнеры', ['site/partners']); ?></li>
         </ul>
