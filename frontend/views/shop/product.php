@@ -100,7 +100,11 @@ $this->params['bodyOptions'] = [
                                 <?= $model->description_full; ?>
                             </div>
                             <div class="bottom-inf visible-xs">
-                                <a class="btn-03" href="">В Корзину</a>
+                                <a class="btn-03"
+                                   data-toggle="cart-product"
+                                   data-name="<?= $model->slug ?>"
+                                   data-item="<?= $i; ?>"
+                                   href="#">В Корзину</a>
                             </div>
                             <div class="row bottom-inf">
                                 <div class="col-lg-0 col-md-0 col-sm-4 col-xs-4 visible-md">
@@ -110,13 +114,13 @@ $this->params['bodyOptions'] = [
                                     <div class="shop__swich">
                                         <ul class="groups">
                                             <?php foreach ($model->varieties as
-                                                           $i => $variety): ?>
+                                                           $j => $variety2): ?>
                                                 <li>
                                                     <a href="#"
-                                                       data-id="<?= $variety->id; ?>"
-                                                       <?= $i == 0
+                                                       data-id="<?= $variety2->id; ?>"
+                                                       <?= $j == 0
                                                            ? 'class="active"' : ''; ?>
-                                                    ><?= $variety->volume ?></a>
+                                                    ><?= $variety2->volume ?></a>
                                                 </li>
                                             <?php endforeach; ?>
                                         </ul>
@@ -130,7 +134,11 @@ $this->params['bodyOptions'] = [
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
-                                    <a class="btn-03" href="">В Корзину</a>
+                                    <a class="btn-03"
+                                       data-toggle="cart-product"
+                                       data-name="<?= $model->slug ?>"
+                                       data-item="<?= $i; ?>"
+                                       href="#">В Корзину</a>
                                 </div>
                             </div>
 

@@ -6,6 +6,9 @@ return [
     'hostInfo' => 'http://manly.inimini.ru',
     'scriptUrl' => 'http://manly.inimini.ru',
     'baseUrl' => 'http://manly.inimini.ru',
+    /*'hostInfo' => 'http://manly.local',
+    'scriptUrl' => 'http://manly.local',
+    'baseUrl' => 'http://manly.local',*/
     'rules' => [
         'partners' => 'site/partners',
         'blog' => 'blog/list',

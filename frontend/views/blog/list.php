@@ -7,6 +7,10 @@ $this->params['bodyOptions'] = [
     'class' => 'body-color-grey'
 ];
 
+$this->registerJs("$('.article-list__bottom-el').on('click', function() {
+    window.location = $(this).find('a').attr('href');
+})");
+
 ?>
 
 <div class="container article-list">

@@ -7,7 +7,7 @@
 
 <div class="col-lg-3 col-md-4 col-sm-6">
     <article class="article-list__col">
-        <img src="images/img-12.jpg" alt="">
+        <?= \yii\helpers\Html::img($post->image_preview); ?>
         <div class="article-list__contain">
             <div class="article-list__soc">
                 <div class="ttl">Поделиться:</div>
@@ -28,8 +28,8 @@
             </div>
         </div>
         <div class="article-list__bottom-el">
-            <div class="ttl text-center">Как правильно ухаживать за бородой своего мужика</div>
-            <a class="btn-10" href="">Читать</a>
+            <div class="ttl text-center"><?= $post->title; ?></div>
+            <?= \yii\helpers\Html::a('Читать', ['blog/post', 'slug' => $post->slug], ['class' => 'btn-10']); ?>
         </div>
     </article>
 </div>

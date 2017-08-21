@@ -952,6 +952,21 @@ body {
   position: fixed;
   left: 0;
   right: 0;
+  overflow: hidden;
+  height: auto;
+
+  /*@keyframes hide-top-logo {
+    from {height: auto;}
+    to {height: 0;}
+  }*/
+
+  transition: opacity .5s;
+
+  &.in-hide {
+    height: 0;
+    opacity: 0;
+  }
+
   .header__logo-top {
     display: block;
     margin: 8% auto 4%;
@@ -1415,6 +1430,7 @@ body {
   color: #c2c2c2;
   .op(12px, 20px);
   display: none;
+  z-index: 5;
 
   ul {
     li {
@@ -1914,10 +1930,13 @@ body {
 
   .article-list__bottom-el {
     position: absolute;
-    left: 43px;
-    right: 43px;
-    bottom: 36px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 10;
+    padding: 150px 43px 36px 43px;
+    text-decoration: none;
+    cursor: pointer;
 
     .ttl {
       color: #fff;

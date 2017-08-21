@@ -112,6 +112,12 @@ $bodyOptions['class'] = ArrayHelper::getValue($bodyOptions, 'class', '') . ' bod
         </section>
         <?php endif; ?>
         <?= $this->render('_nav'); ?>
+        <?php
+        if (Yii::$app->controller->route == 'site/about'):?>
+            <div class="header__top-bg-box hidden-md" style="background-image: url(&quot;images/img-11.jpg&quot;);">
+            <img src="images/img-11.jpg" alt="">
+        </div>
+        <?php endif; ?>
     </header>
     <main class="main">
         <?= $content; ?>

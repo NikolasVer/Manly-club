@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\Modal;
 use yii\helpers\ArrayHelper;
 
 /* @var \common\models\ar\ShopCategory[] $categories */
@@ -44,7 +45,9 @@ $this->params['bodyOptions'] = [
                              'shop_category_id')); ?>">
                     <div class="shop__item">
                         <div class="shop__iocns shop__iocns-left">
-                            <span class="shop__card" data-name="<?= $product->slug; ?>"
+                            <span class="shop__card"
+                                  data-toggle="cart-product"
+                                  data-name="<?= $product->slug; ?>"
                                   data-item="0"></span>
                         </div>
                         <div class="shop__iocns">

@@ -288,7 +288,12 @@ $(document).ready(function () {
     $('.faq-page__open').on("click", function () {
         $(this).toggleClass('active');
         $(".faq-page__scroll-menu, .faq-page__left-title span").slideToggle("slow");
-
+    });
+    $('.faq-page__left-title').on('swipedown', function() {
+        console.log('swipedown');
+    });
+    $('.faq-page__left-title').on('swipeup', function() {
+        console.log('swipeup');
     });
 
 
@@ -390,8 +395,13 @@ $(document).ready(function () {
             //top_height_logo = $('.header__bg').height() - 655,
             top_height_login = $('.header__bg').height() - 15;
         var icon_mob_menu = $('.header__bg').height();
-        how_much > top_height ? $('.header__nav').addClass('sticked-fix')
-            : $('.header__nav').removeClass('sticked-fix');
+        if(how_much > top_height) {
+            $('.header__nav').addClass('sticked-fix');
+            $('.header__top').addClass('in-hide');
+        } else {
+            $('.header__nav').removeClass('sticked-fix')
+            $('.header__top').removeClass('in-hide');
+        }
         how_much > top_height_login ? $('nav .login').addClass('sticked-fix')
             : $('nav .login').removeClass('sticked-fix');
         how_much > icon_mob_menu ? $('nav .login').addClass('sticked-fix')
@@ -442,20 +452,21 @@ $(document).ready(function () {
     var filterContainer = $('.filtr-container');
     if (filterContainer.length) {
         filterContainer.filterizr();
-
-        filterContainer.on('click', '.shop__card', function() {
-            var name = $(this).attr('data-name');
-            var item = $(this).attr('data-item');
-            $.post('/cart-item', {
-                name: name,
-                item: item,
-                change: 1
-            }, function(html) {
-                $('#smallCart').html(html);
-            });
-        });
-
     }
+
+    $('body').on('click', '[data-toggle="cart-product"]', function(e) {
+        e.preventDefault();
+        var name = $(this).attr('data-name');
+        var item = $(this).attr('data-item');
+        $.post('/cart-item', {
+            name: name,
+            item: item,
+            change: 1
+        }, function(html) {
+            swal('Вы добавили ' + name + ' к себе в корзину.');
+            $('#smallCart').html(html);
+        });
+    });
 
     $('.simplefilter li a').click(function () {
         $('.simplefilter li a').removeClass('active');
